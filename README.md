@@ -76,7 +76,7 @@ This ensures the MCP server starts correctly.
 
 ## 🔑 Authentication
 
-The Notion MCP server supports multiple authentication methods, including **OAuth**, which is the recommended approach for most Claude Code users.
+The Notion MCP server supports **OAuth**!
 
 ---
 
@@ -86,9 +86,3 @@ The Notion MCP server supports multiple authentication methods, including **OAut
 - **MCP Server** by Notion  
 - **Plugin Specification** by Anthropic 
 - **COYS** 
-
----
-
-## 📄 License
-
-MIT © 2025 Notion Labs, Inc.
