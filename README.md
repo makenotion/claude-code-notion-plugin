@@ -1,4 +1,4 @@
-# Notion Workspace Plugin for Claude Code
+# Notion Plugin for Claude Code
 
 This repository provides an official Claude Code plugin that bundles:
 
