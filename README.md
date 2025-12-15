@@ -3,7 +3,7 @@
 This repository provides an official Claude Code plugin that bundles:
 
 - **Notion Skills** (from the Notion Cookbook) that teach Claude how to work intelligently inside your Notion workspace  
-- The **Notion MCP Server** (`@notionhq/notion-mcp-server`), which enables Claude to securely search, read, and update your Notion content  
+- The **[Notion MCP Server](https://developers.notion.com/docs/mcp)**, which enables Claude to securely search, read, and update your Notion content  
 - A curated set of **Slash Commands** that make common Notion workflows fast and natural  
 
 This plugin allows Claude Code users to install everything — Skills + MCP server — with **one click**.
