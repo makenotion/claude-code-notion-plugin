@@ -8,5 +8,5 @@
     },
     "repository": "https://github.com/makenotion/claude-code-notion-plugin",
     "license": "MIT",
-    "mcpServers": "../.mcp.json",
-  }
+    "mcpServers": "../.mcp.json"
+}
