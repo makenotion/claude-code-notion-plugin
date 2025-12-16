@@ -1,5 +1,5 @@
 {
-    "name": "notion-workspace-plugin",
+    "name": "Notion",
     "version": "0.1.0",
     "description": "Notion Skills + Notion MCP server packaged as a Claude Code plugin.",
     "author": {
