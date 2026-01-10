@@ -8,7 +8,7 @@
       {
         "name": "notion-workspace-plugin",
         "description": "One-click install for Notion Skills + Notion MCP server.",
-        "source": "../",
+        "source": "./",
         "homepage": "https://www.notion.so"
       }
     ]
