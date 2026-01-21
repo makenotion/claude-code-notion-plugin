@@ -22,11 +22,11 @@ Includes all four high-quality Skills from the Notion Cookbook:
 
 These instructions teach Claude how to structure, write, summarize, capture, and maintain content in your Notion workspace.
 
-### ✅ Integrated Notion MCP Server  
-Claude Code automatically launches:
+### ✅ Integrated Notion MCP Server
+Claude Code automatically connects to Notion's hosted MCP server at:
 
 ```
-npx -y @notionhq/notion-mcp-server
+https://mcp.notion.com/mcp
 ```
 
 This provides Claude with tools to:
@@ -43,12 +43,16 @@ This plugin ships with a set of helpful commands:
 
 | Command | Description |
 |--------|-------------|
-| `/notion-search` | Search your entire Notion workspace |
-| `/notion-create-page` | Create a new page under a given parent |
-| `/notion-database-query` | Query a database by name or ID |
-| `/notion-create-task` | Create a task in a Tasks-style database |
-| `/notion-create-database-row` | Insert a row in any database |
-| `/notion-find` | Quick title-based search for pages/databases |
+| `/Notion:search` | Search your entire Notion workspace |
+| `/Notion:create-page` | Create a new page under a given parent |
+| `/Notion:database-query` | Query a database by name or ID |
+| `/Notion:create-task` | Create a task in a Tasks-style database |
+| `/Notion:create-database-row` | Insert a row in any database |
+| `/Notion:find` | Quick title-based search for pages/databases |
+| `/Notion:tasks:setup` | Set up a Notion task board for tracking |
+| `/Notion:tasks:build <url>` | Build a task from a Notion page URL |
+| `/Notion:tasks:watch <url>` | Watch a board and auto-build ready tasks |
+| `/Notion:tasks:explain-diff` | Generate a Notion doc explaining code changes |
 
 These commands leverage both the Notion Skills and the MCP server.
 
