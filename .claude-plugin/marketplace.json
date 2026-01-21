@@ -8,7 +8,10 @@
       {
         "name": "notion-workspace-plugin",
         "description": "One-click install for Notion Skills + Notion MCP server.",
-        "source": "../",
+        "source": {
+          "source": "github",
+          "repo": "makenotion/claude-code-notion-plugin"
+        },
         "homepage": "https://www.notion.so"
       }
     ]
