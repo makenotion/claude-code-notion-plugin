@@ -51,7 +51,7 @@ This plugin ships with a set of helpful commands:
 | `/Notion:find` | Quick title-based search for pages/databases |
 | `/Notion:tasks:setup` | Set up a Notion task board for tracking |
 | `/Notion:tasks:build <url>` | Build a task from a Notion page URL |
-| `/Notion:tasks:watch <url>` | Watch a board and auto-build ready tasks |
+| `/Notion:tasks:plan <url>` | Make a plan for a task from a Notion page URL |
 | `/Notion:tasks:explain-diff` | Generate a Notion doc explaining code changes |
 
 These commands leverage both the Notion Skills and the MCP server.
