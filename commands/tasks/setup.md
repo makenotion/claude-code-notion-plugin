@@ -23,18 +23,16 @@ If the user wants to start fresh, point them to duplicate this template:
 If the user already has a Notion board they want to use:
 
 - Ask them to provide the URL to their existing board
-- Use the Notion MCP tools to inspect the board structure
-- Verify it has the necessary properties for task management (e.g., Status, Title, etc.)
-- If properties are missing, suggest what they should add (TODO: fill in this list)
+- Use the Notion MCP tools to inspect the board structure and then help them modify the board to make it ready for the tasks commands. The board needs to have:
+    - A status property with Planning, In Progress and Done
+    - An "Agent status" text property for the agent to report its current activities
+    - An "Agent blocked" checkbox property for the agent to notify the user when it's blocked on user input
 
 ## After Setup
 
 Once the user has a board configured:
 
 1. Confirm you can access it via the Notion MCP
-2. Let them know they can now use other commands:
-
-- `/notion:tasks:build` to build a specific task
-- `/notion:tasks:watch` to watch the board and build any task that's marked "Ready for agent"
+2. Let them know they can now use `/notion:tasks:plan` and `/notion:tasks:build` to build a specific task
 
 Remember: Be conversational and helpful. This is a setup wizard, not a one-shot command.
