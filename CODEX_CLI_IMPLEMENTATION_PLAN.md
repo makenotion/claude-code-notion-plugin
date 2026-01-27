@@ -2,7 +2,9 @@
 
 ## Executive Summary
 
-This document outlines the research findings and implementation plan for porting the Notion Plugin from Claude Code to OpenAI's Codex CLI. The port requires adapting the plugin architecture from Claude Code's plugin system to Codex CLI's skills system, with significant structural changes but largely preservable content.
+This document outlines the research findings and implementation plan for porting the Notion Plugin from Claude Code to OpenAI's Codex CLI.
+
+**Key Finding:** The 4 workflow skills (knowledge-capture, meeting-intelligence, research-documentation, spec-to-implementation) are **already in the OpenAI curated skills catalog** at `https://github.com/openai/skills/tree/main/skills/.curated`. The main work is converting the 10 Claude Code slash commands into standalone Codex skills that can be invoked with `$skill-name`.
 
 ---
 
@@ -37,29 +39,42 @@ Codex CLI uses a different paradigm:
 | Scripts | `skills/<name>/scripts/` | Executable automation |
 | References | `skills/<name>/references/` | Supporting documentation |
 
-### 1.3 Key Differences
+### 1.3 Existing Curated Notion Skills
 
-| Feature | Claude Code | Codex CLI | Migration Impact |
-|---------|-------------|-----------|------------------|
-| **Plugin System** | `.claude-plugin/` JSON configs | Skills directory with SKILL.md | **Major restructure** |
-| **MCP Config** | `.mcp.json` (JSON, HTTP type) | `config.toml` (TOML format) | **Format conversion** |
-| **Custom Commands** | `commands/*.md` with YAML frontmatter | Not supported | **Must absorb into skills** |
-| **Skill Format** | `name:` and `description:` frontmatter | Same, but stricter limits (100/500 chars) | Minor adaptation |
-| **Marketplace** | `marketplace.json` registration | `$skill-installer` from GitHub | Different distribution |
-| **Invocation** | `/Plugin:command` slash commands | `$skill-name` or implicit | **Different UX** |
+The following Notion skills **already exist** in the OpenAI skills catalog:
 
-### 1.4 Critical Gaps
+| Skill | Location | Status |
+|-------|----------|--------|
+| `notion-knowledge-capture` | `.curated/notion-knowledge-capture/` | ✅ Already ported |
+| `notion-meeting-intelligence` | `.curated/notion-meeting-intelligence/` | ✅ Already ported |
+| `notion-research-documentation` | `.curated/notion-research-documentation/` | ✅ Already ported |
+| `notion-spec-to-implementation` | `.curated/notion-spec-to-implementation/` | ✅ Already ported |
 
-1. **No Custom Slash Commands**: Codex CLI has 16 built-in slash commands but doesn't support custom command definitions. The 10 Claude Code commands must be:
-   - Absorbed into skill instructions
-   - Documented as usage patterns for users to invoke manually
+These can be installed via: `$skill-installer notion-knowledge-capture`
 
-2. **Character Limits**: Codex skills have strict limits:
-   - `name`: max 100 characters
-   - `description`: max 500 characters
-   - This requires condensing the current descriptions
+### 1.4 Key Insight: Commands → Skills
 
-3. **Distribution Model**: No marketplace equivalent; must use GitHub-based skill installer or direct installation.
+Codex CLI deprecated custom prompts in favor of the Skills system. This means:
+
+1. **Skills ARE the replacement for custom commands** - Users invoke them with `$skill-name`
+2. **Each Claude Code command should become a standalone skill** - Not "absorbed" into workflow skills
+3. **Explicit invocation works** - `$notion-search` replaces `/Notion:search`
+4. **Implicit invocation also works** - Saying "search my Notion workspace" triggers the skill automatically
+
+### 1.5 Migration Mapping
+
+| Claude Code Command | Codex Skill Name | Invocation |
+|---------------------|------------------|------------|
+| `/Notion:search` | `notion-search` | `$notion-search` |
+| `/Notion:find` | `notion-find` | `$notion-find` |
+| `/Notion:create-page` | `notion-create-page` | `$notion-create-page` |
+| `/Notion:create-task` | `notion-create-task` | `$notion-create-task` |
+| `/Notion:create-database-row` | `notion-create-db-row` | `$notion-create-db-row` |
+| `/Notion:database-query` | `notion-query-database` | `$notion-query-database` |
+| `/Notion:tasks:setup` | `notion-agent-setup` | `$notion-agent-setup` |
+| `/Notion:tasks:plan` | `notion-agent-plan` | `$notion-agent-plan` |
+| `/Notion:tasks:build` | `notion-agent-build` | `$notion-agent-build` |
+| `/Notion:tasks:explain-diff` | `notion-explain-diff` | `$notion-explain-diff` |
 
 ---
 
@@ -70,130 +85,180 @@ Codex CLI uses a different paradigm:
 ```
 codex-notion-skills/
 ├── README.md                           # Installation & usage guide
-├── AGENTS.md                           # Optional project-level config example
 ├── config.toml.example                 # MCP configuration example
 │
 ├── skills/
-│   ├── notion-knowledge-capture/
-│   │   ├── SKILL.md                    # Main skill file
-│   │   ├── references/
-│   │   │   ├── content-types.md
-│   │   │   ├── database-types.md
-│   │   │   └── templates.md
-│   │   └── examples/
-│   │       └── save-deployment-guide.md
 │   │
-│   ├── notion-meeting-intelligence/
-│   │   ├── SKILL.md
-│   │   ├── references/
-│   │   │   ├── meeting-types.md
-│   │   │   ├── pre-read-template.md
-│   │   │   └── agenda-template.md
-│   │   └── examples/
-│   │       └── customer-meeting-prep.md
+│   │ # ═══════════════════════════════════════════════════════════
+│   │ # ACTION SKILLS (converted from Claude Code slash commands)
+│   │ # ═══════════════════════════════════════════════════════════
 │   │
-│   ├── notion-research-documentation/
-│   │   ├── SKILL.md
-│   │   ├── references/
-│   │   │   ├── output-formats.md
-│   │   │   └── citation-guide.md
-│   │   └── examples/
-│   │       └── product-research.md
+│   ├── notion-search/
+│   │   └── SKILL.md                    # Search workspace
 │   │
-│   └── notion-spec-to-implementation/
-│       ├── SKILL.md
-│       ├── references/
-│       │   ├── spec-parsing.md
-│       │   ├── task-creation.md
-│       │   └── implementation-plan-template.md
-│       └── examples/
-│           └── feature-breakdown.md
+│   ├── notion-find/
+│   │   └── SKILL.md                    # Quick find by title
+│   │
+│   ├── notion-create-page/
+│   │   └── SKILL.md                    # Create new page
+│   │
+│   ├── notion-create-task/
+│   │   └── SKILL.md                    # Create task in database
+│   │
+│   ├── notion-create-db-row/
+│   │   └── SKILL.md                    # Insert database row
+│   │
+│   ├── notion-query-database/
+│   │   └── SKILL.md                    # Query database with filters
+│   │
+│   │ # ═══════════════════════════════════════════════════════════
+│   │ # AGENT SKILLS (for async agent task workflows)
+│   │ # ═══════════════════════════════════════════════════════════
+│   │
+│   ├── notion-agent-setup/
+│   │   └── SKILL.md                    # Configure task board for agent
+│   │
+│   ├── notion-agent-plan/
+│   │   └── SKILL.md                    # Plan task from Notion URL
+│   │
+│   ├── notion-agent-build/
+│   │   └── SKILL.md                    # Build/implement task
+│   │
+│   └── notion-explain-diff/
+│       └── SKILL.md                    # Explain code changes
 │
 └── installer/
     └── install.sh                      # Optional installation script
 ```
 
-### 2.2 Skill Conversion Plan
+**Note:** The 4 workflow skills (knowledge-capture, meeting-intelligence, research-documentation, spec-to-implementation) are already in the curated catalog and don't need to be recreated.
 
-#### Skill 1: Knowledge Capture
+### 2.2 Command → Skill Conversion Examples
 
-**Current (Claude Code):**
+Each Claude Code command becomes a standalone Codex skill with proper YAML frontmatter and trigger description.
+
+#### Example 1: Search Command → Skill
+
+**Claude Code (`commands/search.md`):**
 ```yaml
 ---
-name: Notion Knowledge Capture
-description: Transform conversations and discussions into structured documentation in Notion
+description: Search the user's Notion workspace using the Notion MCP server
+argument-hint: query terms
 ---
 ```
 
-**Target (Codex CLI):**
+**Codex CLI (`skills/notion-search/SKILL.md`):**
 ```yaml
 ---
-name: notion-knowledge-capture
-description: Transform conversations into structured Notion documentation. Use when asked to save, document, or capture knowledge like how-to guides, FAQs, decision records, or learnings.
+name: notion-search
+description: Search Notion workspace for pages, databases, or content. Use when asked to find, search, or look up information in Notion with natural language queries.
 metadata:
-  short-description: Capture knowledge to Notion
+  short-description: Search Notion workspace
 ---
+
+Search the user's Notion workspace using the Notion MCP tools.
+
+## Behavior
+
+1. Interpret the query as natural-language search terms (e.g., "Q1 roadmap", "customer feedback")
+2. Use the Notion MCP `search` tool for fast, high-signal results
+3. If multiple results found, summarize as a scannable list:
+   - Page/database title
+   - Type (page, database, task list, etc.)
+   - One-line description or key fields
+4. If no results found, suggest refinements or alternative queries
+
+**Output:** Human-readable summary with links/identifiers. Never dump raw JSON.
 ```
 
-**Body Content:**
-- Preserve the workflow steps
-- Include command equivalents as instructions (e.g., "To search for a location, use Notion MCP search tool")
-- Reference supporting files in `references/` directory
+#### Example 2: Create Page Command → Skill
 
-#### Skill 2: Meeting Intelligence
-
-**Target (Codex CLI):**
+**Codex CLI (`skills/notion-create-page/SKILL.md`):**
 ```yaml
 ---
-name: notion-meeting-intelligence
-description: Prepare for meetings by gathering Notion context, enriching with research, and creating pre-read documents and agendas. Use before important meetings.
+name: notion-create-page
+description: Create a new Notion page with sensible structure. Use when asked to create, make, or add a new page in Notion, optionally under a specific parent.
 metadata:
-  short-description: Meeting prep with Notion
+  short-description: Create Notion page
 ---
+
+Create a new Notion page for the user.
+
+## Workflow
+
+1. Parse the request for:
+   - Page title (required)
+   - Parent page/database (optional)
+2. If parent is ambiguous, ask brief clarification
+3. Create page with sensible default structure based on title:
+   - "Meeting notes" → Attendees, Agenda, Notes, Action items
+   - "Project" pages → Overview, Goals, Timeline, Tasks, Risks
+4. Confirm creation with: page title, parent location, link
+
+**Safety:** Don't overwrite existing pages. If same name exists in same parent, confirm with user.
 ```
 
-#### Skill 3: Research & Documentation
+#### Example 3: Agent Plan Command → Skill
 
-**Target (Codex CLI):**
+**Codex CLI (`skills/notion-agent-plan/SKILL.md`):**
 ```yaml
 ---
-name: notion-research-documentation
-description: Search your Notion workspace, synthesize findings, and create comprehensive research documentation with citations. Use for research tasks.
+name: notion-agent-plan
+description: Plan a task tracked in Notion by fetching details, creating an implementation plan, and updating the task status. Use when given a Notion task URL to plan.
 metadata:
-  short-description: Research across Notion
+  short-description: Plan task from Notion
 ---
+
+Plan a task that is tracked in Notion. The user monitors progress via Notion, not this session.
+
+## Input
+
+A Notion task URL provided by the user.
+
+## Workflow
+
+1. **Fetch task details** from Notion via MCP
+   - Get title, description, properties
+   - Look for acceptance criteria, requirements, specs
+   - Read linked pages if needed
+
+2. **Mark as planning**
+   - Set status to "planning"
+   - Update "Agent status" field: 🤖 Starting...
+
+3. **Create plan**
+   - Analyze requirements and create implementation plan
+   - Update "Agent status" at each step (e.g., "📂 Searching files...", "✍️ Writing plan...")
+   - If clarification needed, use Communication Protocol
+
+4. **Complete planning**
+   - Write plan into task page under "Plan" section
+   - Update status to "Ready"
+   - Notify user via Communication Protocol
+
+## Communication Protocol
+
+To communicate with user:
+1. Add comment prefixed with "**Message from Claude:**"
+2. Set "Agent blocked" to true
+3. Set "Agent Status" to short message (e.g., "❓ Choose approach")
+4. Poll every 10 seconds for user response (use sub-agent with max 100 turns)
 ```
 
-#### Skill 4: Spec to Implementation
+### 2.3 Full Command Migration Table
 
-**Target (Codex CLI):**
-```yaml
----
-name: notion-spec-to-implementation
-description: Turn product or technical specifications into concrete Notion tasks with implementation plans and progress tracking. Use when breaking down specs.
-metadata:
-  short-description: Specs to Notion tasks
----
-```
-
-### 2.3 Command Migration Strategy
-
-The 10 slash commands must be absorbed into skill documentation:
-
-| Claude Code Command | Codex CLI Equivalent |
-|---------------------|----------------------|
-| `/Notion:search` | Include in all skills as "search workspace" instruction |
-| `/Notion:find` | Include as "quick find by title" pattern |
-| `/Notion:create-page` | Part of knowledge-capture skill |
-| `/Notion:create-task` | Part of spec-to-implementation skill |
-| `/Notion:create-database-row` | Document as MCP tool usage pattern |
-| `/Notion:database-query` | Document as MCP tool usage pattern |
-| `/Notion:tasks:setup` | Part of spec-to-implementation skill |
-| `/Notion:tasks:plan` | Part of spec-to-implementation skill |
-| `/Notion:tasks:build` | Part of spec-to-implementation skill |
-| `/Notion:tasks:explain-diff` | Create as separate skill or merge |
-
-**Recommendation:** Create a 5th skill `notion-agent-tasks` specifically for the async agent task workflow commands.
+| Command | Skill Name | Trigger Keywords | Complexity |
+|---------|------------|------------------|------------|
+| `search` | `notion-search` | search, find, look up, query | Simple |
+| `find` | `notion-find` | find by title, locate page | Simple |
+| `create-page` | `notion-create-page` | create page, new page, make page | Simple |
+| `create-task` | `notion-create-task` | create task, add task, new task | Simple |
+| `create-database-row` | `notion-create-db-row` | add row, insert row, create entry | Simple |
+| `database-query` | `notion-query-database` | query database, filter, sort | Medium |
+| `tasks/setup` | `notion-agent-setup` | setup task board, configure agent | Medium |
+| `tasks/plan` | `notion-agent-plan` | plan task, create plan from URL | Complex |
+| `tasks/build` | `notion-agent-build` | build task, implement task | Complex |
+| `tasks/explain-diff` | `notion-explain-diff` | explain changes, document diff | Medium |
 
 ### 2.4 MCP Configuration Migration
 
@@ -246,44 +311,57 @@ codex mcp login notion
 
 ## Part 3: Implementation Tasks
 
-### Phase 1: Core Skill Conversion (Priority: High)
+### Phase 1: Action Skills (Priority: High)
 
-- [ ] Convert `knowledge-capture` skill to Codex format
-- [ ] Convert `meeting-intelligence` skill to Codex format
-- [ ] Convert `research-documentation` skill to Codex format
-- [ ] Convert `spec-to-implementation` skill to Codex format
-- [ ] Create `notion-agent-tasks` skill for async task workflows
+Convert basic Claude Code commands to standalone Codex skills:
 
-### Phase 2: Supporting Content (Priority: Medium)
+- [ ] Create `notion-search` skill from `commands/search.md`
+- [ ] Create `notion-find` skill from `commands/find.md`
+- [ ] Create `notion-create-page` skill from `commands/create-page.md`
+- [ ] Create `notion-create-task` skill from `commands/create-task.md`
+- [ ] Create `notion-create-db-row` skill from `commands/create-database-row.md`
+- [ ] Create `notion-query-database` skill from `commands/database-query.md`
 
-- [ ] Migrate reference documents to `references/` directories
-- [ ] Adapt examples to work with Codex invocation patterns
+### Phase 2: Agent Skills (Priority: High)
+
+Convert async agent workflow commands to Codex skills:
+
+- [ ] Create `notion-agent-setup` skill from `commands/tasks/setup.md`
+- [ ] Create `notion-agent-plan` skill from `commands/tasks/plan.md`
+- [ ] Create `notion-agent-build` skill from `commands/tasks/build.md`
+- [ ] Create `notion-explain-diff` skill from `commands/tasks/explain-diff.md`
+
+### Phase 3: Configuration & Infrastructure (Priority: Medium)
+
 - [ ] Create `config.toml.example` with MCP configuration
 - [ ] Write installation script (`install.sh`)
+- [ ] Create directory structure for GitHub repository
 
-### Phase 3: Documentation (Priority: Medium)
+### Phase 4: Documentation (Priority: Medium)
 
 - [ ] Write comprehensive README with:
-  - Installation instructions (3 methods)
-  - MCP setup guide
-  - Usage examples
-  - Skill descriptions
-- [ ] Create `AGENTS.md` example for project-level configuration
-- [ ] Document differences from Claude Code version
+  - Installation instructions (skill-installer, manual)
+  - MCP setup guide (`codex mcp add` and `codex mcp login`)
+  - Usage examples for each skill
+  - Skill quick-reference table
+- [ ] Document relationship to existing curated workflow skills
+- [ ] Add migration guide for Claude Code users
 
-### Phase 4: Testing & Validation (Priority: High)
+### Phase 5: Testing & Validation (Priority: High)
 
-- [ ] Test each skill with Codex CLI
-- [ ] Verify MCP server connectivity
-- [ ] Validate implicit invocation triggers
+- [ ] Test each action skill with Codex CLI
+- [ ] Test each agent skill with Codex CLI
+- [ ] Verify MCP server connectivity and OAuth flow
+- [ ] Validate implicit invocation triggers work correctly
 - [ ] Test explicit `$skill-name` invocation
-- [ ] Ensure reference files are accessible
+- [ ] Test skill combinations (action + workflow skills together)
 
-### Phase 5: Distribution (Priority: Low)
+### Phase 6: Distribution (Priority: Medium)
 
-- [ ] Prepare GitHub repository structure
-- [ ] Submit to OpenAI skills catalog (optional)
+- [ ] Create GitHub repository `makenotion/codex-notion-skills`
+- [ ] Submit action skills to OpenAI skills catalog (`.curated/` or `.community/`)
 - [ ] Create release with installation instructions
+- [ ] Update Claude Code plugin README to reference Codex version
 
 ---
 
@@ -291,35 +369,91 @@ codex mcp login notion
 
 ### 4.1 MCP Authentication
 
-Notion's hosted MCP server (`https://mcp.notion.com/mcp`) likely requires OAuth authentication. Codex CLI supports this via:
+Notion's hosted MCP server (`https://mcp.notion.com/mcp`) requires OAuth authentication. Codex CLI supports this via:
 
 ```bash
+# Add the Notion MCP server
+codex mcp add notion --url https://mcp.notion.com/mcp
+
+# Authenticate via OAuth
 codex mcp login notion
 ```
 
-The skills should include instructions for users to authenticate before first use.
+Each skill should include a prerequisite check for MCP connectivity.
 
-### 4.2 Skill Discovery
+### 4.2 Skill Discovery & Triggers
 
-Codex uses "progressive disclosure" - only skill names and descriptions are loaded at startup. This means:
+Codex uses "progressive disclosure" - only skill names and descriptions are loaded at startup:
 
-1. Descriptions must be highly specific about triggers
-2. Keywords in descriptions determine automatic activation
-3. Users can always invoke explicitly with `$skill-name`
+1. **Descriptions are critical** - They determine both manual discovery and automatic activation
+2. **Keywords matter** - Include action verbs like "search", "create", "find", "plan"
+3. **Be specific** - "Search Notion workspace" is better than "Search"
+4. **Explicit always works** - Users can invoke `$notion-search` directly
 
-### 4.3 Context Window Management
+**Example Trigger Patterns:**
+```
+User: "Search my Notion for Q1 planning docs"
+→ Triggers: notion-search (implicit)
 
-Unlike Claude Code's unlimited context through summarization, Codex has fixed context limits. Skills should:
+User: "$notion-create-task Fix login bug"
+→ Triggers: notion-create-task (explicit)
 
-1. Keep instructions concise
-2. Reference external files rather than inline everything
-3. Use `references/` directory for detailed templates
+User: "Help me plan this task" + provides Notion URL
+→ Triggers: notion-agent-plan (implicit)
+```
 
-### 4.4 Compatibility Notes
+### 4.3 Skill Layering with Workflow Skills
 
-- **Model Differences**: Codex uses GPT-5-Codex models, not Claude. Some prompt patterns may need adjustment.
-- **Tool Names**: MCP tool names should remain consistent, but verify with Notion's MCP server documentation.
-- **Formatting**: Notion markdown formatting should work similarly, but test edge cases.
+The action skills complement the existing curated workflow skills:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    WORKFLOW SKILLS                          │
+│   (Already in curated catalog - complex multi-step flows)   │
+│                                                             │
+│   • notion-knowledge-capture                                │
+│   • notion-meeting-intelligence                             │
+│   • notion-research-documentation                           │
+│   • notion-spec-to-implementation                           │
+└─────────────────────────────────────────────────────────────┘
+                            │
+                            │ can use
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│                     ACTION SKILLS                           │
+│      (New skills - single-purpose operations)               │
+│                                                             │
+│   • notion-search          • notion-query-database          │
+│   • notion-find            • notion-agent-setup             │
+│   • notion-create-page     • notion-agent-plan              │
+│   • notion-create-task     • notion-agent-build             │
+│   • notion-create-db-row   • notion-explain-diff            │
+└─────────────────────────────────────────────────────────────┘
+                            │
+                            │ uses
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│                      NOTION MCP                             │
+│           (https://mcp.notion.com/mcp)                      │
+│                                                             │
+│   Tools: search, read_page, create_page, update_page,       │
+│          query_database, create_database_row, etc.          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 4.4 Context Management
+
+Codex skills should be self-contained and concise:
+
+1. **Keep SKILL.md focused** - Core workflow only
+2. **Use `references/` sparingly** - Only for complex templates
+3. **No need to duplicate** - Workflow skills exist; action skills are simple
+
+### 4.5 Compatibility Notes
+
+- **Model Differences**: Codex uses OpenAI models (GPT-4.1, etc.), not Claude. Prompt patterns may need minor adjustment.
+- **MCP Tool Names**: Should match between Claude Code and Codex - both use Notion's official MCP server.
+- **Polling for Agent Skills**: Codex supports similar async patterns with sub-agents.
 
 ---
 
@@ -327,11 +461,11 @@ Unlike Claude Code's unlimited context through summarization, Codex has fixed co
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
-| Notion MCP server incompatibility | Low | High | Test early, contact Notion if issues |
-| Skill trigger conflicts | Medium | Medium | Use specific, unique descriptions |
-| User confusion (no slash commands) | Medium | Low | Clear documentation, usage examples |
-| OAuth flow issues | Medium | Medium | Document manual token setup as fallback |
-| Context overflow | Low | Medium | Keep skills modular, reference external files |
+| MCP tool name differences | Low | Medium | Verify tool names match Notion MCP spec |
+| Skill trigger overlap | Medium | Low | Use unique, specific descriptions |
+| OAuth flow issues | Low | Medium | Document `codex mcp login` clearly |
+| Agent polling differences | Medium | Medium | Test async patterns early |
+| User migration confusion | Low | Low | Clear mapping table in docs |
 
 ---
 
@@ -339,12 +473,13 @@ Unlike Claude Code's unlimited context through summarization, Codex has fixed co
 
 | Phase | Estimated Effort |
 |-------|------------------|
-| Phase 1: Core Skills | 2-3 days |
-| Phase 2: Supporting Content | 1-2 days |
-| Phase 3: Documentation | 1 day |
-| Phase 4: Testing | 1-2 days |
-| Phase 5: Distribution | 0.5 days |
-| **Total** | **5-8 days** |
+| Phase 1: Action Skills (6 skills) | 1 day |
+| Phase 2: Agent Skills (4 skills) | 1 day |
+| Phase 3: Configuration | 0.5 days |
+| Phase 4: Documentation | 0.5 days |
+| Phase 5: Testing | 1 day |
+| Phase 6: Distribution | 0.5 days |
+| **Total** | **4-5 days** |
 
 ---
 
@@ -359,37 +494,77 @@ brew install --cask codex
 
 ### Skill Installation
 ```bash
-# From GitHub
-$skill-installer install https://github.com/makenotion/codex-notion-skills
+# Install workflow skills from curated catalog
+$skill-installer notion-knowledge-capture
+$skill-installer notion-meeting-intelligence
+$skill-installer notion-research-documentation
+$skill-installer notion-spec-to-implementation
 
-# Curated skills
-$skill-installer <skill-name>
+# Install action skills from GitHub (once published)
+$skill-installer install https://github.com/makenotion/codex-notion-skills
 ```
 
-### MCP Commands
+### MCP Setup
 ```bash
+# Add Notion MCP server
 codex mcp add notion --url https://mcp.notion.com/mcp
+
+# Authenticate via OAuth
 codex mcp login notion
+
+# Verify connection
 codex mcp list
 ```
 
-### Skill Invocation
+### Skill Invocation Examples
 ```
-# Explicit
-$notion-knowledge-capture
+# Explicit invocation with $
+$notion-search Q1 roadmap
+$notion-create-page Meeting Notes for Sprint Planning
+$notion-create-task Fix login bug; due Friday; assigned to me
+$notion-agent-plan https://notion.so/task/abc123
 
-# In prompt
-"Save this conversation as a how-to guide in Notion"  # Implicit trigger
+# Implicit invocation (Codex auto-selects skill)
+"Search my Notion workspace for customer feedback"
+"Create a new project page called API Redesign"
+"Plan the task at this URL: https://notion.so/..."
 ```
 
 ---
 
-## Appendix B: Sources
+## Appendix B: Comparison Table
+
+| Feature | Claude Code Plugin | Codex CLI Skills |
+|---------|-------------------|------------------|
+| Invoke search | `/Notion:search query` | `$notion-search query` |
+| Create page | `/Notion:create-page Title` | `$notion-create-page Title` |
+| Create task | `/Notion:create-task Title` | `$notion-create-task Title` |
+| Plan task | `/Notion:tasks:plan URL` | `$notion-agent-plan URL` |
+| Knowledge capture | Uses skill implicitly | `$notion-knowledge-capture` |
+| Meeting prep | Uses skill implicitly | `$notion-meeting-intelligence` |
+| MCP config | `.mcp.json` | `~/.codex/config.toml` |
+| Installation | `/plugin marketplace add` | `$skill-installer` |
+
+---
+
+## Appendix C: Sources
 
 - [Codex CLI Documentation](https://developers.openai.com/codex/cli/)
 - [Codex MCP Documentation](https://developers.openai.com/codex/mcp/)
 - [Codex Skills Documentation](https://developers.openai.com/codex/skills/)
 - [Create Skills Guide](https://developers.openai.com/codex/skills/create-skill/)
-- [AGENTS.md Guide](https://developers.openai.com/codex/guides/agents-md)
 - [OpenAI Skills Catalog](https://github.com/openai/skills)
-- [Codex CLI GitHub](https://github.com/openai/codex)
+- [Curated Notion Skills](https://github.com/openai/skills/tree/main/skills/.curated)
+
+---
+
+## Summary
+
+This implementation plan outlines the port of the Notion Plugin from Claude Code to Codex CLI:
+
+1. **Workflow skills already exist** - The 4 main skills are in the OpenAI curated catalog
+2. **Commands become skills** - Each of the 10 slash commands becomes a standalone skill invocable with `$skill-name`
+3. **MCP configuration** - Convert from `.mcp.json` to `config.toml` format
+4. **Distribution via GitHub** - Publish to `makenotion/codex-notion-skills` for `$skill-installer`
+
+**Key insight:** Codex deprecated custom prompts in favor of Skills. This is the right abstraction for porting Claude Code commands - each command maps 1:1 to a skill that users invoke with `$` prefix or through natural language (implicit invocation).
