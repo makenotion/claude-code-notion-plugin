@@ -1,0 +1,12 @@
+# Codex CLI Configuration Example
+# Copy relevant sections to ~/.codex/config.toml
+
+# Enable remote MCP client for Notion integration
+[features]
+rmcp_client = true
+
+# MCP Server Configuration
+# After adding this config, run: codex mcp login notion
+[mcp_servers.notion]
+type = "http"
+url = "https://mcp.notion.com/mcp"

@@ -1,91 +1,87 @@
-# Notion Plugin for Claude Code
+# Notion Skills for Codex CLI
 
-This repository provides an official Claude Code plugin that bundles:
+Skills that teach Codex how to work intelligently with your Notion workspace using the Notion MCP Server.
 
-- **Notion Skills** (from the Notion Cookbook) that teach Claude how to work intelligently inside your Notion workspace  
-- The **[Notion MCP Server](https://developers.notion.com/docs/mcp)**, which enables Claude to securely search, read, and update your Notion content  
-- A curated set of **Slash Commands** that make common Notion workflows fast and natural  
+## Skills Included
 
-This plugin allows Claude Code users to install everything — Skills + MCP server — with **one click**.
+### Workflow Skills
+| Skill | Description |
+|-------|-------------|
+| `notion-knowledge-capture` | Transform conversations into structured Notion documentation |
+| `notion-meeting-intelligence` | Prepare meeting materials with Notion context |
+| `notion-research-documentation` | Document research findings in Notion |
+| `notion-spec-to-implementation` | Convert specs into implementation plans and tasks |
 
----
+### Action Skills
+| Skill | Description |
+|-------|-------------|
+| `notion-search` | Search workspace with natural language queries |
+| `notion-find` | Find pages/databases by title keywords |
+| `notion-create-page` | Create pages with intelligent defaults |
+| `notion-create-task` | Create tasks with property mapping |
+| `notion-create-database-row` | Insert rows into any database |
+| `notion-database-query` | Query databases with natural language filters |
 
-## 🚀 Features
+### Agent Skills
+| Skill | Description |
+|-------|-------------|
+| `notion-agent-setup` | Interactive setup wizard for task boards |
+| `notion-agent-plan` | Autonomous task planning from Notion URLs |
+| `notion-agent-build` | Autonomous task implementation |
+| `notion-explain-diff` | Generate documentation explaining code changes |
 
-### ✅ Fully packaged Notion Skills
-Includes all four high-quality Skills from the Notion Cookbook:
+## Installation
 
-- **Knowledge Capture**
-- **Meeting Intelligence**
-- **Research Documentation**
-- **Spec to Implementation**
-
-These instructions teach Claude how to structure, write, summarize, capture, and maintain content in your Notion workspace.
-
-### ✅ Integrated Notion MCP Server
-Claude Code automatically connects to Notion's hosted MCP server at:
-
-```
-https://mcp.notion.com/mcp
-```
-
-This provides Claude with tools to:
-
-- Search your workspace  
-- Retrieve pages & databases  
-- Create and update pages  
-- Append notes or blocks  
-- Insert database rows  
-- Work with properties safely  
-
-### ✅ Powerful Slash Commands  
-This plugin ships with a set of helpful commands:
-
-| Command | Description |
-|--------|-------------|
-| `/Notion:search` | Search your entire Notion workspace |
-| `/Notion:create-page` | Create a new page under a given parent |
-| `/Notion:database-query` | Query a database by name or ID |
-| `/Notion:create-task` | Create a task in a Tasks-style database |
-| `/Notion:create-database-row` | Insert a row in any database |
-| `/Notion:find` | Quick title-based search for pages/databases |
-| `/Notion:tasks:setup` | Set up a Notion task board for tracking |
-| `/Notion:tasks:build <url>` | Build a task from a Notion page URL |
-| `/Notion:tasks:plan <url>` | Make a plan for a task from a Notion page URL |
-| `/Notion:tasks:explain-diff` | Generate a Notion doc explaining code changes |
-
-These commands leverage both the Notion Skills and the MCP server.
-
----
-
-## 📦 Installation (Claude Code)
-
-### 1. Add this plugin's marketplace
-In Claude Code, run:
+### 1. Clone to your Codex skills directory
 
 ```bash
-/plugin marketplace add makenotion/claude-code-notion-plugin
+git clone https://github.com/Yosuke-Maeda/skills.git $CODEX_HOME/skills
 ```
 
-### 2. Install the plugin
+Or add as a subdirectory:
 
 ```bash
-/plugin install notion-workspace-plugin@notion-plugin-marketplace
+git clone https://github.com/Yosuke-Maeda/skills.git $CODEX_HOME/skills/notion
 ```
 
-### 3. Restart Claude Code  
-This ensures the MCP server starts correctly.
+### 2. Configure Notion MCP Server
 
----
+Add to your `~/.codex/config.toml`:
 
-## 🔑 Authentication
+```toml
+[features]
+rmcp_client = true
 
-The Notion MCP server supports **OAuth**!
+[mcp_servers.notion]
+type = "http"
+url = "https://mcp.notion.com/mcp"
+```
 
----
+See `config.toml.example` for reference.
 
-## 🙌 Credits
+### 3. Authenticate with Notion
 
-- **Skills** by the Notion
-- **MCP Server** by Notion  
-- **Plugin Specification** by Anthropic 
+```bash
+codex mcp login notion
+```
+
+This opens OAuth flow to connect your Notion workspace.
+
+### 4. Restart Codex
+
+Restart Codex CLI to load the skills and MCP server.
+
+## Usage
+
+Invoke skills with `$skill-name`:
+
+```
+$notion-search find my project roadmap
+$notion-create-task Add authentication to the login page
+$notion-agent-plan https://notion.so/workspace/Task-abc123
+```
+
+## Credits
+
+- Skills by Notion
+- MCP Server by Notion
