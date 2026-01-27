@@ -1,99 +1,54 @@
 ---
 name: notion-search
-description: Search a Notion workspace for pages, databases, and content using natural language queries. Returns human-readable summaries with links.
+description: Search Notion workspace with natural language queries; use when finding pages, databases, or content across the workspace.
+metadata:
+  short-description: Search Notion with natural language
 ---
 
 # Notion Search
 
-Search your Notion workspace for content using natural language queries. Returns organized, scannable results with direct links to pages and databases.
+Search your Notion workspace using natural language queries to find pages, databases, and content.
 
-## Quick Start
+## Quick start
+1) Parse the user's search intent and keywords.
+2) Execute search with `Notion:notion-search` using appropriate filters.
+3) Present results in a clear, ranked format with titles and snippets.
+4) Offer to fetch full content with `Notion:notion-fetch` for relevant results.
+5) Refine search if needed based on user feedback.
 
-When the user asks to search their Notion workspace:
+## Workflow
 
-1. **Interpret query**: Parse the search terms from user input
-2. **Execute search**: Use `Notion:notion-search` to find matching content
-3. **Summarize results**: Present findings as a scannable list
-4. **Suggest refinements**: If no results, offer alternative queries
+### 0) If any MCP call fails because Notion MCP is not connected, pause and set it up:
+1. Add the Notion MCP:
+   - `codex mcp add notion --url https://mcp.notion.com/mcp`
+2. Enable remote MCP client:
+   - Set `[features].rmcp_client = true` in `config.toml` **or** run `codex --enable rmcp_client`
+3. Log in with OAuth:
+   - `codex mcp login notion`
 
-## Search Workflow
+After successful login, the user will have to restart codex. You should finish your answer and tell them so when they try again they can continue with Step 1.
 
-### Step 1: Parse the search query
+### 1) Parse search intent
+- Extract keywords and phrases from user request.
+- Identify filters: content type (page/database), teamspace, date range, creator.
+- Determine if searching for titles only or full content.
 
-```
-Interpret user input as natural-language search terms:
-- Topic searches: "Q1 roadmap", "customer feedback"
-- Entity searches: "bugs triage", "project alpha"
-- Content searches: "deployment instructions", "API documentation"
-```
+### 2) Execute search
+- Use `Notion:notion-search` with parsed query and filters.
+- Apply teamspace filter if scope is known.
+- Use date filters for recent content searches.
 
-### Step 2: Execute the search
+### 3) Present results
+- Show top results with title, type, and snippet.
+- Include last edited date for context.
+- Group by type (pages vs databases) if mixed results.
 
-```
-Use Notion MCP tools to search:
-- Prefer fast, high-signal tools like workspace search
-- Use database queries for structured data
-- Search across both pages and databases
-```
+### 4) Offer next steps
+- Suggest fetching full content for promising results.
+- Offer to narrow/broaden search if too many/few results.
+- Help user navigate to specific sections.
 
-### Step 3: Present results
-
-```
-For each result, include:
-- Page/database title
-- Type (page, database, task list, etc.)
-- One-line description or key fields
-- Link or identifier for direct access
-```
-
-### Step 4: Handle edge cases
-
-```
-If no results found:
-- Suggest spelling variations
-- Offer broader search terms
-- Recommend alternative queries
-
-If too many results:
-- Ask for filters or narrower scope
-- Show most relevant matches first
-```
-
-## Output Format
-
-Present results as a human-readable summary:
-
-```
-Found 5 results for "customer feedback":
-
-1. **Customer Feedback Database** (database)
-   Collection of user feedback entries - 234 items
-
-2. **Q4 Customer Feedback Summary** (page)
-   Executive summary of customer sentiment analysis
-
-3. **Feedback Triage Process** (page)
-   How-to guide for processing incoming feedback
-```
-
-## Best Practices
-
-- **Never dump raw JSON** - Always format for human readability
-- **Include clickable links** - Users should be able to navigate directly
-- **Prioritize relevance** - Show 5-10 most relevant results, not everything
-- **Explain empty results** - Help users refine their search
-
-## Common Queries
-
-| Query Type | Example | Notes |
-|------------|---------|-------|
-| Topic | "roadmap" | Finds planning documents |
-| Project | "Project Alpha" | Finds project-related pages |
-| Content type | "meeting notes" | Finds specific document types |
-| Person | "Alice's tasks" | Finds user-related content |
-| Date-based | "last week standup" | May need database filtering |
-
-## MCP Tools Used
-
-- `Notion:notion-search` - Primary workspace search
-- `Notion:notion-query-database` - For filtered database searches
+### 5) Handle edge cases
+- No results: suggest alternative keywords or broader scope.
+- Too many results: offer filters to narrow down.
+- Ambiguous query: ask clarifying questions.

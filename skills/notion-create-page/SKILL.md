@@ -1,169 +1,55 @@
 ---
 name: notion-create-page
-description: Create new Notion pages with intelligent defaults and structure based on page type. Supports optional parent specification and prevents accidental overwrites.
+description: Create Notion pages with intelligent defaults and proper structure; use when adding new documentation, notes, or content pages.
+metadata:
+  short-description: Create pages with smart defaults
 ---
 
 # Notion Create Page
 
-Create new pages in Notion with sensible default structures based on the page title and type. Handles parent page specification and prevents accidental overwrites.
+Create well-structured Notion pages with intelligent defaults for titles, content organization, and placement.
 
-## Quick Start
+## Quick start
+1) Gather page details: title, content, and desired location.
+2) Find parent page/database with `Notion:notion-search` if not specified.
+3) Structure content with appropriate headings and formatting.
+4) Create page with `Notion:notion-create-pages` using proper parent.
+5) Confirm creation and provide link to new page.
 
-When the user wants to create a new Notion page:
+## Workflow
 
-1. **Parse input**: Extract page title and optional parent
-2. **Resolve parent**: If specified, find the parent page/database
-3. **Generate structure**: Create appropriate sections based on title
-4. **Create page**: Use `Notion:notion-create-pages` to create
-5. **Confirm creation**: Return title, location, and link
+### 0) If any MCP call fails because Notion MCP is not connected, pause and set it up:
+1. Add the Notion MCP:
+   - `codex mcp add notion --url https://mcp.notion.com/mcp`
+2. Enable remote MCP client:
+   - Set `[features].rmcp_client = true` in `config.toml` **or** run `codex --enable rmcp_client`
+3. Log in with OAuth:
+   - `codex mcp login notion`
 
-## Create Page Workflow
+After successful login, the user will have to restart codex. You should finish your answer and tell them so when they try again they can continue with Step 1.
 
-### Step 1: Parse the request
+### 1) Gather page requirements
+- Get title (generate descriptive one if not provided).
+- Collect content to include in the page.
+- Ask about location: standalone, under parent, or in database.
 
-```
-Extract from user input:
-- Page title (required)
-- Parent page or database (optional)
-- Any specific content requirements
+### 2) Determine placement
+- Search for parent page with `Notion:notion-search` if specified.
+- Fetch parent with `Notion:notion-fetch` to confirm structure.
+- Default to standalone page if no parent specified.
 
-Examples:
-- "Meeting notes for Q1 review" -> Title: "Q1 Review Meeting Notes"
-- "New project page under Engineering" -> Title: "New Project", Parent: Engineering
-```
+### 3) Structure content
+- Organize with clear headings (##, ###).
+- Use bullet points for lists.
+- Add code blocks for technical content.
+- Include links to related pages where relevant.
 
-### Step 2: Resolve parent location
+### 4) Create the page
+- Use `Notion:notion-create-pages` with structured content.
+- Set parent using `page_id` or `data_source_id` as appropriate.
+- Include any metadata or properties if in a database.
 
-```
-If parent is specified:
-- Search for matching page/database
-- If ambiguous, ask for clarification
-- If not found, offer to create at workspace root
-
-If no parent specified:
-- Create at workspace root
-- Or ask user for preferred location
-```
-
-### Step 3: Check for duplicates
-
-```
-Before creating:
-- Search for existing pages with same title in same location
-- If found, ask user:
-  - Reuse existing page?
-  - Create new page with different name?
-  - Create anyway (will have duplicate title)?
-```
-
-### Step 4: Generate page structure
-
-Based on title keywords, create appropriate sections:
-
-**Meeting Notes** (keywords: meeting, notes, standup, review):
-```
-## Attendees
--
-
-## Agenda
-1.
-
-## Discussion Notes
-
-
-## Action Items
-- [ ]
-
-## Next Steps
-
-```
-
-**Project Page** (keywords: project, initiative, program):
-```
-## Overview
-
-
-## Goals
--
-
-## Timeline
-| Milestone | Date | Status |
-|-----------|------|--------|
-|           |      |        |
-
-## Tasks
-
-
-## Risks & Blockers
-
-
-## Resources
-
-```
-
-**Generic Page**:
-```
-## Overview
-
-
-## Details
-
-
-## Related
-
-```
-
-### Step 5: Create and confirm
-
-```
-After creation, return:
-- Page title
-- Parent location
-- Direct link or identifier
-- Brief confirmation message
-```
-
-## Output Format
-
-```
-Created new page:
-
-**Title**: Q1 Planning Meeting Notes
-**Location**: Engineering / Meetings
-**Link**: [Open in Notion](notion://...)
-
-The page has been set up with sections for:
-- Attendees
-- Agenda
-- Discussion Notes
-- Action Items
-- Next Steps
-```
-
-## Smart Defaults by Page Type
-
-| Page Type | Detected By | Sections Included |
-|-----------|-------------|-------------------|
-| Meeting Notes | "meeting", "notes", "standup" | Attendees, Agenda, Notes, Actions |
-| Project | "project", "initiative" | Overview, Goals, Timeline, Tasks, Risks |
-| Spec/RFC | "spec", "rfc", "proposal" | Summary, Background, Proposal, Alternatives |
-| How-To | "how to", "guide", "tutorial" | Overview, Prerequisites, Steps, Troubleshooting |
-| Generic | Default | Overview, Details, Related |
-
-## Safety Features
-
-- **No overwrites**: Always checks for existing pages first
-- **Clarification prompts**: Asks before proceeding with ambiguous input
-- **Parent verification**: Confirms parent location exists before creating
-
-## Best Practices
-
-- **Intelligent defaults**: Generate useful structure, not empty pages
-- **Respect hierarchy**: Place pages in logical locations
-- **Confirm actions**: Always report what was created and where
-- **Link related content**: Suggest linking to/from related pages
-
-## MCP Tools Used
-
-- `Notion:notion-search` - For finding parent pages and checking duplicates
-- `Notion:notion-create-pages` - For creating the new page
+### 5) Confirm and link
+- Return the URL to the created page.
+- Suggest linking from related pages for discoverability.
+- Offer to update parent page with reference to new page.

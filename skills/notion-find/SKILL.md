@@ -1,100 +1,54 @@
 ---
 name: notion-find
-description: Quickly locate Notion pages or databases by title keywords. Optimized for precision with fuzzy matching on titles.
+description: Find Notion pages or databases by title keywords; use for quick lookups when you know approximate page names.
+metadata:
+  short-description: Find pages/databases by title
 ---
 
 # Notion Find
 
-Quickly locate pages or databases in Notion by matching title keywords. Optimized for finding specific items when you know part of the name.
+Quickly locate Notion pages or databases by title keywords when you know what you're looking for.
 
-## Quick Start
+## Quick start
+1) Extract title keywords from user request.
+2) Search with `Notion:notion-search` filtering by title match.
+3) Present matching pages/databases with types and locations.
+4) Fetch the selected item with `Notion:notion-fetch` if user confirms.
+5) Handle ambiguity by showing options for user to choose.
 
-When the user wants to find a specific page or database:
+## Workflow
 
-1. **Parse keywords**: Extract title search terms from user input
-2. **Search titles**: Use `Notion:notion-search` focused on title matching
-3. **Return matches**: Present best matches with type and location
-4. **Prioritize precision**: Show 5-10 highly relevant results
+### 0) If any MCP call fails because Notion MCP is not connected, pause and set it up:
+1. Add the Notion MCP:
+   - `codex mcp add notion --url https://mcp.notion.com/mcp`
+2. Enable remote MCP client:
+   - Set `[features].rmcp_client = true` in `config.toml` **or** run `codex --enable rmcp_client`
+3. Log in with OAuth:
+   - `codex mcp login notion`
 
-## Find Workflow
+After successful login, the user will have to restart codex. You should finish your answer and tell them so when they try again they can continue with Step 1.
 
-### Step 1: Parse title keywords
+### 1) Parse title keywords
+- Extract the page/database name from user request.
+- Handle partial names and common variations.
+- Note if user wants a page vs database specifically.
 
-```
-Treat input as fuzzy search terms for titles:
-- Partial matches: "Q1 plan" matches "Q1 Planning Document"
-- Case insensitive: "claude" matches "Claude Marketplace Spec"
-- Word order flexible: "spec marketplace" matches "Marketplace Spec"
-```
+### 2) Execute title search
+- Use `Notion:notion-search` with title-focused query.
+- Filter by object type (page/database) if specified.
+- Apply teamspace filter if context is known.
 
-### Step 2: Search both content types
+### 3) Present matches
+- Show matching items with full titles and types.
+- Include parent page/location for context.
+- Rank by title similarity and recency.
 
-```
-Search for:
-- Individual pages
-- Databases
-- Wiki pages
-- Project pages
-```
+### 4) Confirm and fetch
+- If single clear match, offer to fetch content.
+- If multiple matches, present options for user selection.
+- Use `Notion:notion-fetch` to retrieve selected item.
 
-### Step 3: Present results
-
-```
-For each match, show:
-- Title (exact)
-- Type (page or database)
-- Location/parent (if available)
-- Quick identifier or link
-```
-
-### Step 4: Handle no matches
-
-```
-If nothing found:
-- State clearly: "No pages or databases found matching 'X'"
-- Suggest alternate search terms
-- Offer to try broader search
-```
-
-## Output Format
-
-```
-Found 3 matches for "Q1 plan":
-
-1. **Q1 Planning Document** (page)
-   Located in: Engineering / Roadmaps
-
-2. **Q1 Plans Database** (database)
-   Located in: Company Wiki
-
-3. **Q1 Planning Meeting Notes** (page)
-   Located in: Meetings / January
-```
-
-## Precision vs Recall
-
-This skill prioritizes **precision over recall**:
-
-- Better to show 5-10 very relevant results than 50 noisy ones
-- Title matches rank higher than content matches
-- Exact matches appear before partial matches
-
-## Differences from Search
-
-| Feature | Find | Search |
-|---------|------|--------|
-| Focus | Title matching | Full content |
-| Results | 5-10 precise | More comprehensive |
-| Use case | Know the name | Exploring topics |
-| Speed | Faster | More thorough |
-
-## Best Practices
-
-- **Be specific**: Help users narrow down when multiple matches exist
-- **Show hierarchy**: Include parent pages/locations when available
-- **Quick access**: Provide links or IDs for immediate navigation
-- **Suggest alternatives**: If no exact match, offer similar titles
-
-## MCP Tools Used
-
-- `Notion:notion-search` - With title-focused parameters
+### 5) Handle no matches
+- Suggest spelling variations or related terms.
+- Offer broader search across content.
+- Ask user for more details about the page.

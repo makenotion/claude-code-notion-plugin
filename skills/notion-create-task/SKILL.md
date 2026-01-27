@@ -1,151 +1,56 @@
 ---
 name: notion-create-task
-description: Create tasks in Notion task databases with intelligent property mapping. Automatically identifies task databases and sets appropriate defaults.
+description: Create tasks in Notion databases with proper property mapping; use when adding action items, todos, or tracked work items.
+metadata:
+  short-description: Create tasks with property mapping
 ---
 
 # Notion Create Task
 
-Create new tasks in Notion task databases with sensible defaults. Automatically identifies the appropriate task database and maps properties intelligently.
+Create tasks in Notion task databases with automatic property mapping for status, priority, assignee, and due dates.
 
-## Quick Start
+## Quick start
+1) Parse task details: title, description, priority, due date, assignee.
+2) Find target task database with `Notion:notion-search`.
+3) Fetch database schema with `Notion:notion-fetch` to get properties.
+4) Map task details to database properties and create with `Notion:notion-create-pages`.
+5) Confirm task creation with link and property summary.
 
-When the user wants to create a new task:
+## Workflow
 
-1. **Parse task details**: Extract title and optional properties
-2. **Find task database**: Identify the appropriate tasks database
-3. **Map properties**: Match user input to database properties
-4. **Create task**: Insert new row with mapped values
-5. **Confirm creation**: Return task details and link
+### 0) If any MCP call fails because Notion MCP is not connected, pause and set it up:
+1. Add the Notion MCP:
+   - `codex mcp add notion --url https://mcp.notion.com/mcp`
+2. Enable remote MCP client:
+   - Set `[features].rmcp_client = true` in `config.toml` **or** run `codex --enable rmcp_client`
+3. Log in with OAuth:
+   - `codex mcp login notion`
 
-## Create Task Workflow
+After successful login, the user will have to restart codex. You should finish your answer and tell them so when they try again they can continue with Step 1.
 
-### Step 1: Parse task input
+### 1) Parse task details
+- Extract task title (action-oriented, starts with verb).
+- Identify priority (high/medium/low) from context.
+- Parse due date if mentioned (today, tomorrow, next week, specific date).
+- Note assignee if specified.
 
-```
-Extract from user input:
-- Task title (required)
-- Due date (optional): "tomorrow", "next Friday", "2024-03-15"
-- Status (optional): "todo", "in progress", "blocked"
-- Owner/Assignee (optional): person name or email
-- Project (optional): related project or page
-- Priority (optional): high, medium, low
-- Tags (optional): labels or categories
+### 2) Find task database
+- Search with `Notion:notion-search` for "Tasks", "Task Board", or similar.
+- If multiple databases, ask user which to use.
+- If user specifies database name, search for that specifically.
 
-Examples:
-- "Fix login bug by Friday" -> Title: "Fix login bug", Due: Friday
-- "Review PR for Alice, high priority" -> Title: "Review PR", Owner: Alice, Priority: High
-```
+### 3) Get database schema
+- Fetch database with `Notion:notion-fetch` to see properties.
+- Identify property names for: Status, Priority, Due Date, Assignee.
+- Note required properties and valid options (e.g., status values).
 
-### Step 2: Identify task database
+### 4) Create the task
+- Map parsed details to database property names.
+- Use `Notion:notion-create-pages` with `data_source_id` from database.
+- Set Status to initial value (e.g., "To Do", "Not Started").
+- Include task description in page content.
 
-```
-Find the appropriate task database:
-- Look for databases named "Tasks", "To-Do", "Action Items"
-- Check database description for task-related keywords
-- Verify database has task-like properties (Status, Due Date)
-
-If multiple candidates:
-- Ask user to choose
-- Remember selection for future tasks
-```
-
-### Step 3: Map properties
-
-```
-Map user input to database properties:
-- Handle property name variations:
-  - "Due" / "Due Date" / "Deadline"
-  - "Owner" / "Assignee" / "Assigned To"
-  - "Status" / "State" / "Progress"
-- Apply defaults for unspecified properties:
-  - Status: "To Do" or first status option
-  - Priority: "Medium" if property exists
-```
-
-### Step 4: Validate and create
-
-```
-Before creating:
-- Check required properties are set
-- Validate property values against allowed options
-- Ask for missing required values
-
-Create the task:
-- Insert new row in database
-- Set all mapped properties
-```
-
-### Step 5: Confirm creation
-
-```
-Return to user:
-- Task title
-- Key properties set (due date, owner, etc.)
-- Link to the task
-- Any properties that were defaulted
-```
-
-## Output Format
-
-```
-Created new task:
-
-**Title**: Fix login bug
-**Due Date**: Friday, March 15
-**Status**: To Do
-**Owner**: Alice
-**Priority**: High
-
-[Open in Notion](notion://...)
-
-Note: Priority was set to "High" as requested. Project was not specified.
-```
-
-## Property Mapping
-
-| User Input | Common Property Names |
-|------------|----------------------|
-| due, deadline | Due Date, Due, Deadline |
-| owner, assignee | Owner, Assignee, Assigned To |
-| status | Status, State, Progress |
-| priority | Priority, Importance, Urgency |
-| project | Project, Related Project, Parent |
-| tags, labels | Tags, Labels, Categories |
-
-## Smart Defaults
-
-When properties aren't specified:
-
-- **Status**: First option in status property (usually "To Do")
-- **Due Date**: Not set (tasks can be undated)
-- **Priority**: "Medium" if priority property exists
-- **Owner**: Not set unless user is identifiable
-
-## Error Handling
-
-```
-If task database not found:
-- Ask user to specify which database to use
-- Offer to search for databases with specific names
-
-If required property missing:
-- Ask for the specific value
-- Explain which properties are required
-
-If property value invalid:
-- Show allowed values
-- Ask user to choose from options
-```
-
-## Best Practices
-
-- **Minimize friction**: Create tasks with minimal required input
-- **Smart inference**: Parse natural language dates and priorities
-- **Property flexibility**: Handle various property naming conventions
-- **Confirm silently mapped values**: Show what was set automatically
-
-## MCP Tools Used
-
-- `Notion:notion-search` - For finding task databases
-- `Notion:notion-query-database` - For understanding database schema
-- `Notion:notion-create-database-item` - For creating the task
+### 5) Confirm creation
+- Return link to created task.
+- Summarize properties set (status, priority, due date).
+- Offer to create related tasks if user has more.
