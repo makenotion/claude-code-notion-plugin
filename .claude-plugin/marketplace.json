@@ -6,7 +6,7 @@
     },
     "plugins": [
       {
-        "name": "notion-workspace-plugin",
+        "name": "Notion",
         "description": "One-click install for Notion Skills + Notion MCP server.",
         "source": {
           "source": "github",
