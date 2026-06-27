@@ -7,5 +7,7 @@
       "url": "https://www.notion.so"
     },
     "repository": "https://github.com/makenotion/claude-code-notion-plugin",
-    "license": "MIT"
+    "license": "MIT",
+    "commands": "commands/",
+    "skills": "skills/"
 }
