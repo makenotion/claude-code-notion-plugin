@@ -38,6 +38,8 @@ This provides Claude with tools to:
 - Insert database rows  
 - Work with properties safely  
 
+> **Data flow**: When Claude uses these tools, your workspace content (page text, database rows, etc.) is sent to Notion's hosted MCP endpoint at `mcp.notion.com`. See [Notion's Privacy Policy](https://www.notion.so/privacy) for data handling details.
+
 ### ✅ Powerful Slash Commands  
 This plugin ships with a set of helpful commands:
 
