@@ -78,6 +78,16 @@ This ensures the MCP server starts correctly.
 
 ---
 
+## Installation (Neotask)
+
+Install from [Neotask Construct](https://construct.neotask.ai/p/notion-plugin):
+
+```bash
+neotask construct install notion-plugin
+```
+
+---
+
 ## 🔑 Authentication
 
 The Notion MCP server supports **OAuth**!
