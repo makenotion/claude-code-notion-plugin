@@ -15,7 +15,7 @@ This plugin allows Claude Code users to install everything — Skills + MCP serv
 ### ✅ Fully packaged Notion Skills
 Includes 12 Skills from the [Notion Cookbook](https://github.com/makenotion/notion-cookbook/tree/main/skills/mcp-clients):
 
-- **Database Designer** — Design Notion databases
+- **Database designer** — Design Notion databases
 - **Meeting Intelligence** — Prepare meetings and follow-ups
 - **Research Documentation** — Research and write cited docs
 - **Spec to implementation** — Turn specs into plans and tasks
