@@ -1,0 +1,23 @@
+{
+  "name": "Save a draft in the requested database",
+  "skills": ["notion-meeting-intelligence"],
+  "query": "Save a draft agenda for a 20-minute cache rollout review in https://notion.so/meetings. Cover rollout status, whether to expand beyond 10%, and monitoring ownership. Do not notify attendees.",
+  "context": {
+    "sources": {
+      "https://notion.so/meetings": {
+        "data_source_id": "meetings-source",
+        "properties": {
+          "Meeting": "title",
+          "State": ["Draft", "Ready", "Completed"]
+        }
+      }
+    },
+    "tools": ["fetch", "create-pages"]
+  },
+  "success_criteria": [
+    "Creates one agenda in meetings-source with State set to Draft, using the fetched schema.",
+    "Covers rollout review, the expansion decision, and monitoring ownership in at most 20 minutes.",
+    "Returns the saved page link rather than treating the word draft as a request for chat-only output.",
+    "Does not invent a decision, create a separate pre-read, notify attendees, or mark the agenda Ready."
+  ]
+}

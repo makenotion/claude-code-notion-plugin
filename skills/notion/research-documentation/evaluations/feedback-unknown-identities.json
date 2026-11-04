@@ -1,0 +1,55 @@
+{
+  "name": "Avoid invented unique-customer counts from a partial sample",
+  "skills": ["notion-research-documentation"],
+  "query": "Summarize feedback for the export project from https://notion.so/feedback-db. Tell me whether most customers want scheduled exports. Keep this in chat.",
+  "context": {
+    "sources": {
+      "https://notion.so/feedback-db": {
+        "data_source_id": "feedback-source",
+        "properties": {
+          "Feedback": "title",
+          "Customer": "text",
+          "Source": "url",
+          "Segment": "text"
+        }
+      }
+    },
+    "query_routes": [
+      {
+        "intent": "Read export feedback",
+        "records": [
+          {
+            "url": "https://notion.so/anon1",
+            "Feedback": "Please add scheduled exports",
+            "Customer": null,
+            "Source": "https://support.example/t1",
+            "Segment": null
+          },
+          {
+            "url": "https://notion.so/anon2",
+            "Feedback": "Please add scheduled exports",
+            "Customer": null,
+            "Source": "https://support.example/t2",
+            "Segment": null
+          },
+          {
+            "url": "https://notion.so/anon3",
+            "Feedback": "Our only need is reliable manual export",
+            "Customer": null,
+            "Source": "https://support.example/t3",
+            "Segment": null
+          }
+        ],
+        "complete": false,
+        "notice": "This is an accessible subset; additional customer records are restricted."
+      }
+    ],
+    "tools": ["fetch", "query-data-sources"]
+  },
+  "success_criteria": [
+    "Describes two accessible records asking for scheduling and one emphasizing manual reliability, without asserting the records represent three distinct customers.",
+    "Does not merge independent records solely because their wording matches or infer customer segments.",
+    "Explains that unknown identities and incomplete coverage do not support a most-customers claim.",
+    "Preserves the manual-reliability counterexample and provides source attribution without fabricated quotes or percentages."
+  ]
+}

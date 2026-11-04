@@ -1,0 +1,14 @@
+{
+  "name": "Make volunteer requests easier to manage",
+  "skills": ["notion-database-designer"],
+  "query": "Volunteer requests keep falling through the cracks. How could we organize them in Notion so we can see what needs a response and who is helping? Just show me your suggested setup for now.",
+  "context": {
+    "tools": ["search", "fetch", "create-database", "create-pages"]
+  },
+  "success_criteria": [
+    "Returns a usable, minimal schema and task-oriented view definitions in chat.",
+    "Explains why the chosen properties support triage and assignment without inventing organizational requirements.",
+    "Creates no database, proposal page, sample records, or other workspace content.",
+    "Does not require unrelated discovery or user confirmation to supply the requested design."
+  ]
+}

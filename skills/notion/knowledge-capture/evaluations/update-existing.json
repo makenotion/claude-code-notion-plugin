@@ -1,0 +1,17 @@
+{
+  "name": "Update existing knowledge without duplication",
+  "skills": ["notion-knowledge-capture"],
+  "query": "Update https://notion.so/deploy-guide with this correction: verify /ready returns 200 instead of /health. Keep the rest.",
+  "context": {
+    "sources": {
+      "https://notion.so/deploy-guide": "Run npm ci, npm test, npm run deploy. Verify /health returns 200; otherwise npm run rollback. Owner: Platform. See the migration checklist."
+    },
+    "tools": ["fetch", "update-page"]
+  },
+  "success_criteria": [
+    "Fetches the supplied page directly and updates the health-check endpoint.",
+    "Preserves commands, owner, rollback condition, and migration reference.",
+    "Creates no new page and performs no discovery search.",
+    "Returns the updated page link and verifies the change from the response or a read-back."
+  ]
+}

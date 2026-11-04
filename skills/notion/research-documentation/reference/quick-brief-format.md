@@ -9,7 +9,7 @@
 
 ## Characteristics
 
-**Length**: 200-400 words
+**Length**: Match the requested depth; no minimum word count.
 
 **Structure**:
 

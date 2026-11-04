@@ -1,0 +1,45 @@
+{
+  "name": "refine-team-and-placement",
+  "skills": ["notion-set-up-my-project"],
+  "query": "Use Product projects. I am working with Maya on design and Eli on engineering. I lead product; Maya should review the interaction spec.",
+  "context": {
+    "prior_result": "The initial private project home has already been shared at https://notion.so/saved-views. Its tasks and docs are populated. Product projects was offered as a destination at https://notion.so/product-projects.",
+    "sources": {
+      "https://notion.so/saved-views": "Existing draft home with a product brief, interaction spec, and tasks. No people assigned.",
+      "https://notion.so/product-projects": "Projects database with Name, Status, Owner, and related shared Tasks and Docs collections."
+    },
+    "users": [
+      {
+        "id": "user-current",
+        "name": "Current user"
+      },
+      {
+        "id": "user-maya",
+        "name": "Maya"
+      },
+      {
+        "id": "user-eli-a",
+        "name": "Eli Chen"
+      },
+      {
+        "id": "user-eli-b",
+        "name": "Eli Rivera"
+      }
+    ],
+    "tools": [
+      "fetch",
+      "search",
+      "get-users",
+      "get-tool-access",
+      "update-page",
+      "move-pages",
+      "query-data-sources"
+    ]
+  },
+  "success_criteria": [
+    "Updates and moves the existing home into the chosen database; preserves the page identity and content and reconciles task/doc relations without duplicate records.",
+    "Adds the known product lead, design collaborator/reviewer, and engineering responsibility to the home; resolves exact identities and does not guess between two Eli accounts.",
+    "Does not infer task ownership, invite people, send messages, or change sharing just because collaborators were named.",
+    "Does not repeat the placement question. Resolves only the remaining identity ambiguity while completing unaffected updates."
+  ]
+}

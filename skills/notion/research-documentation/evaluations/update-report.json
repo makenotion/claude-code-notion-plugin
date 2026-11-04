@@ -1,0 +1,18 @@
+{
+  "name": "Update an existing report without rewriting unrelated content",
+  "skills": ["notion-research-documentation"],
+  "query": "Update the pricing section of https://notion.so/vendor-report with the verified price from https://vendor.example/pricing. Keep the rest.",
+  "context": {
+    "sources": {
+      "https://notion.so/vendor-report": "Pricing: $10/user/month. Security: requires SSO review. Migration: pilot scheduled October 15.",
+      "https://vendor.example/pricing": "Effective October 1, 2026: $12/user/month."
+    },
+    "tools": ["fetch", "web-fetch", "update-page"]
+  },
+  "success_criteria": [
+    "Updates price and effective date with an external source citation.",
+    "Preserves the security and migration sections.",
+    "Creates no new report and does not perform broad unrelated research.",
+    "Returns the updated report link and verifies the write."
+  ]
+}

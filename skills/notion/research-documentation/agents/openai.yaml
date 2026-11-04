@@ -1,0 +1,5 @@
+interface:
+  display_name: "Research Documentation"
+  short_description: "Research and write cited docs"
+policy:
+  allow_implicit_invocation: true

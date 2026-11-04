@@ -1,0 +1,43 @@
+{
+  "name": "context-to-workspace",
+  "skills": ["notion-build-my-engineering-wiki"],
+  "query": "Create an engineering home from our auth project discussion and technical docs. Create it under https://notion.so/team-home.",
+  "context": {
+    "conversation": "Auth uses sessions today. Stateless tokens are only a proposal. Work is already tracked in GitHub; link it rather than making a second tracker.",
+    "sources": {
+      "https://notion.so/team-home": "Empty authorized destination. No existing workspace or tracker.",
+      "https://notion.so/source": "Auth design: current session store in Postgres. Draft proposal: stateless tokens, no acceptance yet. Issues at https://github.com/example/auth/issues."
+    },
+    "search_routes": [
+      {
+        "intent": "Find source material for the requested workspace",
+        "results": [
+          {
+            "url": "https://notion.so/source",
+            "title": "Source notes"
+          }
+        ]
+      },
+      {
+        "intent": "Find existing workspace or tracker",
+        "results": []
+      }
+    ],
+    "tools": [
+      "fetch",
+      "search",
+      "connector-search",
+      "get-users",
+      "create-pages",
+      "create-database",
+      "create-view",
+      "query-data-sources"
+    ]
+  },
+  "success_criteria": [
+    "Clearly separates the current session design from the unaccepted token proposal and links existing GitHub issues without creating a second issue tracker or claiming a sync.",
+    "Uses chat context without asking the user to restate it; fetches the source and destination before populating.",
+    "Creates a populated home with working navigation, clear hierarchy, and a first action; links source material and preserves original notes.",
+    "Verifies populated content and view semantics; reports visual inspection honestly."
+  ]
+}

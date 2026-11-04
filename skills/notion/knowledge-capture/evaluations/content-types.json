@@ -1,0 +1,14 @@
+{
+  "name": "Preserve FAQ and post-mortem capture",
+  "skills": ["notion-knowledge-capture"],
+  "query": "Draft a short FAQ and a separate post-mortem from these notes; do not save yet.",
+  "context": {
+    "conversation": "Why did exports fail? The worker used an expired credential. What fixed it? Rotating that credential restored exports. Incident: October 2, 09:00\u201309:20 UTC. Alerting worked; our rotation reminder was missing. Action: Lee will add the reminder; no due date agreed.",
+    "tools": []
+  },
+  "success_criteria": [
+    "Produces both requested drafts, distinguishing question/answer content from the incident record.",
+    "Preserves the cause, remedy, incident window, successful alerting, missing reminder, and action owner.",
+    "Does not invent a deadline or publish either draft."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Record outcomes for a recurring meeting",
+  "skills": ["notion-meeting-intelligence"],
+  "query": "Update https://notion.so/cache-sync with today's outcome: keep rollout at 10%; Lee owns monitoring; review again October 12. Do not create tasks.",
+  "context": {
+    "sources": {
+      "https://notion.so/cache-sync": "Recurring cache sync. Open action: Maya to validate rollback. Agenda: rollout decision and monitoring. Existing notes from October 1 must remain."
+    },
+    "tools": ["fetch", "update-page"]
+  },
+  "success_criteria": [
+    "Records the 10% decision, Lee ownership, and October 12 review while preserving prior notes.",
+    "Keeps Maya's rollback action unresolved rather than silently marking it done.",
+    "Creates no task pages, extra meeting series, or notifications.",
+    "Returns the updated page link."
+  ]
+}

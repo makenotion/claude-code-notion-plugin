@@ -1,0 +1,31 @@
+{
+  "name": "resume-limited-tools",
+  "skills": ["notion-plan-marketing-campaigns"],
+  "query": "Finish setting up the workspace under https://notion.so/team-home; the last attempt timed out.",
+  "context": {
+    "conversation": "We need a launch blog and a LinkedIn post. Mira owns the blog draft. No publish dates agreed. Keep it clean and compact.",
+    "prior_result": "Creating the workspace home timed out. No record creation was attempted.",
+    "sources": {
+      "https://notion.so/team-home": "Contains existing child https://notion.so/starter-home.",
+      "https://notion.so/starter-home": "Workspace home from the previous attempt, with introduction only."
+    },
+    "tool_access": {
+      "create-pages": true,
+      "update-page": true,
+      "create-database": false,
+      "create-view": false
+    },
+    "tools": [
+      "fetch",
+      "search",
+      "get-tool-access",
+      "create-pages",
+      "update-page"
+    ]
+  },
+  "success_criteria": [
+    "Inspects the parent and existing home before writing; continues on that home without creating a duplicate.",
+    "Builds useful page content from the conversation, preserves the existing introduction, and links any child pages.",
+    "Explains unavailable database/view setup and labels static content honestly; does not repeatedly call unavailable tools."
+  ]
+}

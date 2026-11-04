@@ -1,4 +1,9 @@
-# Task Creation from Specs
+# Task creation from specs
+
+Use this guide when task creation is requested. Examples are illustrative: use
+the exposed tool schema and actual database properties. Fetch a supplied database
+directly, reuse its schema for the task, and check for existing work before creating
+new pages. Do not create a separate plan unless requested or needed for the work.
 
 ## Finding the Task Database
 
@@ -35,27 +40,13 @@ Result: `collection://abc-123-def` for use as parent
 
 ## Task Breakdown Strategy
 
-### Size Guidelines
+### Size guidelines
 
-**Good task size**:
-
-- Completable in 1-2 days
-- Single clear deliverable
-- Independently testable
-- Minimal dependencies
-
-**Too large**:
-
-- Takes > 3 days
-- Multiple deliverables
-- Many dependencies
-- Break down further
-
-**Too small**:
-
-- Takes < 2 hours
-- Too granular
-- Group with related work
+Prefer a clear deliverable with testable acceptance criteria and explicit
+prerequisites. Split work when it has independent outcomes or cannot be verified
+as one task; combine trivial steps that serve the same outcome. Respect team
+conventions and the scope of the spec. Do not impose a minimum task count or a
+fixed duration. Small changes can be one task; complex features need more detail.
 
 ### Granularity by Phase
 
@@ -347,24 +338,12 @@ Phase 3 (Polish):
 
 ## Estimation
 
-### Story Points
+### Estimates when useful
 
-If using story points:
-
-- 1 point: Few hours
-- 2 points: Half day
-- 3 points: Full day
-- 5 points: 2 days
-- 8 points: 3-4 days (consider breaking down)
-
-### Time Estimates
-
-Direct time estimates:
-
-- 2-4 hours: Small task
-- 1 day: Medium task
-- 2 days: Large task
-- 3+ days: Break down further
+Use the team's existing scale and label assumptions. Story points are relative;
+do not convert them to days without an established team convention. Include time
+estimates when requested or useful for planning, with uncertainty for unknowns.
+Do not invent due dates or commitments to fill a template.
 
 ### Estimation Factors
 
@@ -431,7 +410,7 @@ For each work item in breakdown:
 Then:
   1. Update plan with task links
   2. Review sequencing
-  3. Assign tasks (if known)
+  3. Assign tasks when requested and assignees are known
 ```
 
 ## Task Naming Conventions
@@ -460,7 +439,7 @@ Before finalizing tasks:
 ☐ Each task has clear objective
 ☐ Acceptance criteria are testable
 ☐ Dependencies identified
-☐ Appropriate size (1-2 days)
+☐ Independently verifiable scope
 ☐ Priority assigned
 ☐ Linked to spec/plan
 ☐ Proper sequencing

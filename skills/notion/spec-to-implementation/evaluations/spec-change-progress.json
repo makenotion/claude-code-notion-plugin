@@ -1,0 +1,38 @@
+{
+  "name": "Reconcile changed requirements with observed progress",
+  "skills": ["notion-spec-to-implementation"],
+  "query": "Update our plan and tasks for the revised https://notion.so/export-spec. Keep completed work and record the impact; do not notify anyone.",
+  "context": {
+    "sources": {
+      "https://notion.so/export-spec": "Revised spec: preserve CSV export and add JSON export. Both must exclude deleted records. Plan: https://notion.so/export-plan. Tasks: https://notion.so/tasks.",
+      "https://notion.so/export-plan": "CSV implementation and exclusion tests. CSV task completed; exclusion tests not started.",
+      "https://notion.so/tasks": {
+        "data_source_id": "tasks-source",
+        "properties": {
+          "Task": "title",
+          "Stage": ["Backlog", "Doing", "Done"]
+        }
+      }
+    },
+    "existing_tasks": [
+      {
+        "id": "csv-task",
+        "title": "CSV export",
+        "status": "Done",
+        "evidence": "Merged PR 42; CSV tests passed."
+      },
+      {
+        "id": "exclusion-task",
+        "title": "Exclude deleted records",
+        "status": "Backlog"
+      }
+    ],
+    "tools": ["fetch", "query-data-sources", "create-pages", "update-page"]
+  },
+  "success_criteria": [
+    "Preserves the completed CSV task and its evidence.",
+    "Adds JSON work and updates exclusion acceptance criteria to cover both formats without duplicating existing tasks.",
+    "Records changed scope and dependencies in the existing plan.",
+    "Does not claim JSON is implemented, fabricate progress percentages, or send notifications."
+  ]
+}

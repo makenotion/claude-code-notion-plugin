@@ -1,0 +1,3 @@
+interface:
+  display_name: "Weekly project digest"
+  short_description: "Summarize progress, blockers, and next steps"

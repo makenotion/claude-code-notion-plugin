@@ -1,0 +1,5 @@
+interface:
+  display_name: "Database Designer"
+  short_description: "Design Notion databases"
+policy:
+  allow_implicit_invocation: true

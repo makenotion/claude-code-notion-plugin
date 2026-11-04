@@ -1,0 +1,30 @@
+{
+  "name": "connected-campaign-workspace",
+  "skills": ["notion-plan-marketing-campaigns"],
+  "query": "Set up our marketing workspace in Notion from these campaign notes. Use a new private workspace; don't search existing company information.",
+  "context": {
+    "conversation": "Fictional Northline campaign: Get Friday back, launches November 12, 2026. Lightweight invoicing for independent architects: unpaid-invoice visibility and editable reminder drafts, not automated collection. Candid, practical voice; deep blue. Article in review, planned Nov 12, approval pending. 45-second walkthrough in production for Nov 12, storyboard unpaid list > select invoice > edit reminder; no final video. Customer email drafting for Nov 13, consented existing customers only. LinkedIn idea undated/unapproved. Partner blurb blocked on confirmation, undated. Reminder how-to not started, proposed Nov 17. No assets, named owners, budgets, or performance supplied.",
+    "tools": [
+      "fetch",
+      "get-tool-access",
+      "create-pages",
+      "create-database",
+      "create-view",
+      "update-page",
+      "update-view",
+      "query-data-sources",
+      "browser-or-native-ui"
+    ]
+  },
+  "success_criteria": [
+    "Creates a durable private marketing home with recognizable sidebar destinations, not a showcase under a comparison/demo parent.",
+    "Campaign is a record in a Campaigns collection even with one initial campaign; content uses native campaign relations and correctly filtered campaign views.",
+    "The home is an orientation surface; shared production, campaign context, and working drafts have distinct reachable destinations.",
+    "Visible campaign and content page properties convey lifecycle, dates, format, and relationships without repeating them as body text; unavailable layout controls are reported honestly.",
+    "All six deliverables are preserved, including undated and blocked work, and proposed dates/approval states remain truthful.",
+    "At least article, video, and email pages contain useful proposed work in format-specific bodies; no identical generic brief shells or fabricated assets.",
+    "Rendered review covers sidebar, home, campaign, and two different-format records; assesses density, clipping, hierarchy and navigation instead of treating Markdown readback as visual verification.",
+    "Skill output is assessed before manual changes; deficiencies trigger skill revision and a new clean run, not parent-agent polishing presented as a skill pass.",
+    "No publishing, email sending, sharing changes, unrelated searches, or school workspace edits."
+  ]
+}

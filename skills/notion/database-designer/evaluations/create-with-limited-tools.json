@@ -1,0 +1,27 @@
+{
+  "name": "Build what is supported without claiming unsupported views",
+  "skills": ["notion-database-designer"],
+  "query": "Create a simple equipment checkout database under https://notion.so/lab. Use one row per item, with item name, borrower, due date, and available or checked-out status. Add an overdue view if supported. Do not add sample items.",
+  "context": {
+    "sources": {
+      "https://notion.so/lab": "Lab workspace parent for the equipment database."
+    },
+    "tool_access": {
+      "current_tool_access": {
+        "create_database": {
+          "status": "available"
+        },
+        "create_view": {
+          "status": "unavailable"
+        }
+      }
+    },
+    "tools": ["get-tool-access", "fetch", "create-database"]
+  },
+  "success_criteria": [
+    "Creates one database under the supplied parent with the requested title, borrower, date, and status properties.",
+    "Does not create sample rows or an unsolicited proposal page.",
+    "Does not claim an overdue view was created; provides its manual filter definition using checked-out status and past due date.",
+    "Checks the creation result and returns the created database link with the unsupported view clearly identified."
+  ]
+}

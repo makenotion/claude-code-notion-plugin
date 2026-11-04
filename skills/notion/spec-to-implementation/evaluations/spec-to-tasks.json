@@ -1,34 +1,27 @@
 {
-  "name": "Create Tasks from Specification",
-  "skills": ["spec-to-implementation", "task-manager"],
-  "query": "Read the Payment Integration spec and create implementation tasks in our Tasks database",
-  "expected_behavior": [
-    "Step 1: Uses Notion:notion-search to find Payment Integration spec or asks for URL",
-    "Step 2: Fetches spec page using Notion:notion-fetch to read full content",
-    "Step 3: Parses spec using reference/spec-parsing.md patterns to identify work items",
-    "Step 4: Breaks down into appropriately-sized tasks using breakdown patterns from reference/task-creation.md",
-    "Step 5: Uses Notion:notion-search to find Tasks database location",
-    "Step 6: Fetches Tasks database using Notion:notion-fetch to get schema, property names, and data sources",
-    "Step 7: Identifies correct data source from <data-source> tags in fetch results",
-    "Step 8: Optionally creates implementation plan page first (recommended per workflow)",
-    "Step 9: For each task - creates task page using Notion:notion-create-pages with parent: { data_source_id: 'collection://...' }",
-    "Step 10: Sets task properties from schema: Title, Status (To Do), Priority, Related Tasks (link to spec)",
-    "Step 11: Includes task description with context, acceptance criteria from spec, dependencies",
-    "Step 12: Links tasks to spec page using <mention-page> and to each other for dependencies",
-    "Step 13: Sequences tasks appropriately (setup → implementation → testing per reference/task-creation.md)",
-    "Step 14: Reports summary: 'Created X tasks for Payment Integration: [task list with links]'"
-  ],
+  "name": "Create linked tasks using the actual schema",
+  "skills": ["notion-spec-to-implementation"],
+  "query": "Read https://notion.so/payment-spec and create implementation tasks in https://notion.so/tasks.",
+  "context": {
+    "sources": {
+      "https://notion.so/payment-spec": "Support checkout with idempotency keys and signed payment webhooks. Acceptance: repeating checkout does not double charge; invalid signatures are rejected; replayed webhook events do not duplicate fulfillment. Refunds are out of scope.",
+      "https://notion.so/tasks": {
+        "data_source_id": "tasks-source",
+        "properties": {
+          "Task": "title",
+          "Stage": ["Backlog", "Doing", "Done"],
+          "Depends on": "relation to tasks-source"
+        },
+        "existing_tasks": []
+      }
+    },
+    "tools": ["fetch", "query-data-sources", "create-pages", "update-page"]
+  },
   "success_criteria": [
-    "Spec is found using Notion:notion-search before attempting to fetch",
-    "Task database is found using Notion:notion-search before attempting to fetch schema",
-    "Database schema is fetched and data source identified from <data-source> tags",
-    "Multiple tasks created (at least 3-5) covering spec scope",
-    "Tasks are right-sized per reference/task-creation.md (1-2 days each)",
-    "Each task has clear acceptance criteria extracted from spec",
-    "Tasks are properly sequenced with dependencies using relation properties",
-    "All tasks link back to original spec using mention-page tags",
-    "Task properties match exact schema from fetched database",
-    "Tasks use correct parent (data_source_id: 'collection://...') for database placement",
-    "Uses correct tool names and sequence: Notion:notion-search (2x) → Notion:notion-fetch (2x) → Notion:notion-create-pages (Nx)"
+    "Covers checkout idempotency, webhook signature validation, replay handling, and their tests with explicit acceptance criteria.",
+    "Uses Task and Stage from the actual schema and a valid data source parent.",
+    "Uses task IDs for task relations, not a spec ID in a relation targeting the task database.",
+    "Links tasks to the spec, preserves refunds as out of scope, and returns created task links.",
+    "Does not invent owners or dates, require a fixed task count, or mark work as started."
   ]
 }

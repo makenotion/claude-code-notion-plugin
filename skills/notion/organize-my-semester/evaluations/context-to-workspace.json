@@ -1,0 +1,43 @@
+{
+  "name": "context-to-workspace",
+  "skills": ["notion-organize-my-semester"],
+  "query": "Set up my semester in Notion using the biology syllabus and notes we discussed. Create it under https://notion.so/team-home.",
+  "context": {
+    "conversation": "Biology lecture notes: cell membranes regulate transport. Essay deadline November 12, 2026. Reading chapter 4 has no due date. I prefer a minimal page.",
+    "sources": {
+      "https://notion.so/team-home": "Empty authorized destination. No existing workspace or tracker.",
+      "https://notion.so/source": "Biology syllabus: essay due November 10, 2026; chapter 4 reading required."
+    },
+    "search_routes": [
+      {
+        "intent": "Find source material for the requested workspace",
+        "results": [
+          {
+            "url": "https://notion.so/source",
+            "title": "Source notes"
+          }
+        ]
+      },
+      {
+        "intent": "Find existing workspace or tracker",
+        "results": []
+      }
+    ],
+    "tools": [
+      "fetch",
+      "search",
+      "connector-search",
+      "get-users",
+      "create-pages",
+      "create-database",
+      "create-view",
+      "query-data-sources"
+    ]
+  },
+  "success_criteria": [
+    "Keeps the conflicting November 10 and November 12 essay dates visible for resolution; preserves the undated reading and the membrane notes without inventing course progress.",
+    "Uses chat context without asking the user to restate it; fetches the source and destination before populating.",
+    "Creates a populated home with working navigation, clear hierarchy, and a first action; links source material and preserves original notes.",
+    "Verifies populated content and view semantics; reports visual inspection honestly."
+  ]
+}

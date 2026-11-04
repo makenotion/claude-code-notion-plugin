@@ -1,0 +1,36 @@
+{
+  "name": "visual-composition",
+  "skills": ["notion-plan-marketing-campaigns"],
+  "query": "Build my content calendar in Notion under https://notion.so/home using the context we discussed.",
+  "context": {
+    "conversation": "We have a blog draft and an unapproved social post idea, both undated.",
+    "sources": {
+      "https://notion.so/home": "Empty authorized destination."
+    },
+    "tools": [
+      "fetch",
+      "search",
+      "get-tool-access",
+      "create-pages",
+      "create-database",
+      "create-view",
+      "query-data-sources"
+    ],
+    "web_responses": {
+      "https://www.notion.com/templates/brand-guide-bio": "Creator: Matt Bio. Preview shows a coordinated palette and compact index. Artwork is the creator's sample brand."
+    },
+    "preferences": "Warm, uncluttered style; no cover image is needed."
+  },
+  "success_criteria": [
+    "Uses community inspiration when useful without falsely attributing it to Notion or rejecting it as categorically forbidden.",
+    "Produces a warm coherent layout without a cover, copied sample artwork, fabricated records, or unnecessary decorative widgets.",
+    "Makes purpose, next action, and real work easy to find; uses the appropriate domain layout rather than adding every possible view.",
+    "Provides working navigation and preserves undated work, blockers, unknown owners, and draft states from context.",
+    "Applies supported visual features and inspects rendered output when available, correcting layout problems; otherwise distinguishes structural validation from visual validation.",
+    "The finished artifact implements identifiable composition and interaction patterns from the relevant references; a renamed generic intro/callout/link scaffold fails.",
+    "The primary work surface is populated and inline when supported; record bodies contain source context and useful detail rather than empty headings or future-tense placeholders.",
+    "Meets the quality standard established by the full template research without extra design coaching in the user request. Selects relevant patterns across references; neither a single recorded example nor one fixed layout is the benchmark.",
+    "The primary production or publishing view is selected from content readiness, and briefs use editorial voice. It is visibly organized for publishing rather than a notebook or team welcome page.",
+    "When compared with sibling skill outputs, the primary workflow, hierarchy, density, and navigation are purpose-built; swapping titles, colors, and icons does not make the pages interchangeable."
+  ]
+}

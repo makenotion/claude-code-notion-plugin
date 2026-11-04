@@ -1,0 +1,55 @@
+{
+  "name": "Reuse a project-period digest on rerun",
+  "skills": ["notion-weekly-project-digest"],
+  "query": "Save the internal Orbit weekly digest for September 28\u2013October 4, 2026 in https://notion.so/updates. Use https://notion.so/orbit. Update this period\u2019s existing digest if there is one; leave reviewer comments intact.",
+  "context": {
+    "sources": {
+      "https://notion.so/orbit": "Orbit project. Reporting timezone UTC. This period: rollout rehearsal completed September 30; verified in https://notion.so/proof.",
+      "https://notion.so/proof": "September 30 rehearsal passed.",
+      "https://notion.so/updates": {
+        "data_source_id": "updates-source",
+        "properties": {
+          "Update": "title",
+          "Project": {
+            "type": "relation",
+            "target": "projects-source"
+          },
+          "Period start": "date",
+          "Period end": "date",
+          "Audience": ["Internal", "External"]
+        }
+      },
+      "https://notion.so/digest": "Existing internal Orbit digest for September 28\u2013October 4: Progress: rehearsal pending. Reviewer comments: keep the launch question for Monday.",
+      "https://notion.so/prior-digest": "Internal Orbit digest September 21\u201327: rehearsal open."
+    },
+    "query_routes": [
+      {
+        "intent": "Find Orbit weekly updates for current or previous reporting period",
+        "records": [
+          {
+            "url": "https://notion.so/digest",
+            "Project": ["https://notion.so/orbit"],
+            "Period start": "2026-09-28",
+            "Period end": "2026-10-04",
+            "Audience": "Internal"
+          },
+          {
+            "url": "https://notion.so/prior-digest",
+            "Project": ["https://notion.so/orbit"],
+            "Period start": "2026-09-21",
+            "Period end": "2026-09-27",
+            "Audience": "Internal"
+          }
+        ],
+        "complete": true
+      }
+    ],
+    "tools": ["fetch", "query-data-sources", "create-pages", "update-page"]
+  },
+  "success_criteria": [
+    "Updates the existing current-period internal digest rather than creating another page or altering the prior period.",
+    "Records the verified rehearsal completion with source attribution and preserves reviewer comments.",
+    "Preserves the correct project relation, period, and audience.",
+    "Returns the updated digest URL and does not modify task records or notify anyone."
+  ]
+}

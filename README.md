@@ -13,14 +13,22 @@ This plugin allows Claude Code users to install everything — Skills + MCP serv
 ## 🚀 Features
 
 ### ✅ Fully packaged Notion Skills
-Includes all four high-quality Skills from the Notion Cookbook:
+Includes 12 Skills from the [Notion Cookbook](https://github.com/makenotion/notion-cookbook/tree/main/skills/mcp-clients):
 
-- **Knowledge Capture**
-- **Meeting Intelligence**
-- **Research Documentation**
-- **Spec to Implementation**
+- **Database Designer** — Design Notion databases
+- **Meeting Intelligence** — Prepare meetings and follow-ups
+- **Research Documentation** — Research and write cited docs
+- **Spec to implementation** — Turn specs into plans and tasks
+- **Weekly project digest** — Summarize progress, blockers, and next steps
+- **Build my engineering wiki** — Bring technical docs and projects together
+- **Create my team handbook** — Organize team knowledge and procedures
+- **Knowledge capture** — Turn conversations into reusable docs
+- **Organize my semester** — Keep courses, notes, and deadlines together
+- **Plan marketing campaigns** — Organize campaigns, content, and production
+- **Set up my project** — Create a project home with tasks and docs
+- **Set up Notion** — Connect Notion and get started
 
-These instructions teach Claude how to structure, write, summarize, capture, and maintain content in your Notion workspace.
+The skills include their supporting references, examples, evaluation scenarios, and display metadata. Skill sources are maintained in the Notion Cookbook and mirrored into `skills/notion/` here.
 
 ### ✅ Integrated Notion MCP Server
 Claude Code automatically connects to Notion's hosted MCP server at:

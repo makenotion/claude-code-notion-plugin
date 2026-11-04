@@ -1,0 +1,26 @@
+{
+  "name": "default-private-destination",
+  "skills": ["notion-organize-my-semester"],
+  "query": "Use the context above to set this up in Notion.",
+  "context": {
+    "conversation": "Create a small demo using clearly marked mock content so I can see what the skill produces. No destination is specified.",
+    "tool_access": {
+      "create-pages": true,
+      "create-database": true,
+      "create-view": true
+    },
+    "tools": [
+      "fetch",
+      "get-tool-access",
+      "create-pages",
+      "create-database",
+      "create-view",
+      "query-data-sources"
+    ]
+  },
+  "success_criteria": [
+    "Uses the tool-supported durable private-page default instead of asking for a parent or creating a publicly shared page.",
+    "Creates a clearly labeled demo with sufficient coherent mock input to exercise the domain workflow, with no real people assigned.",
+    "Completes a domain-specific designed output and working navigation, rather than a placeholder shell."
+  ]
+}

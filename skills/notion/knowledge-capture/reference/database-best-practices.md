@@ -1,6 +1,9 @@
 # Database Best Practices
 
-General guidance for creating and maintaining knowledge capture databases.
+Use these design examples when creating or adapting a database is requested.
+For an existing database, use its actual schema and conventions; do not add
+properties, views, or a new database merely to match an example. Tool arguments
+below are illustrative; follow the exposed tool schema.
 
 ## Core Principles
 
@@ -85,7 +88,8 @@ Example for documentation database:
 
 ### Fetching Database Schema
 
-Before creating pages, always fetch database to get schema:
+Before creating database items, fetch the schema unless a current copy is already
+available in this task:
 
 ```
 Notion:notion-fetch

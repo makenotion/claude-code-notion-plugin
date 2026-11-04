@@ -1,0 +1,14 @@
+{
+  "name": "Capture uncertainty without a connection",
+  "skills": ["notion-knowledge-capture"],
+  "query": "Turn these notes into a decision record I can paste into Notion.",
+  "context": {
+    "conversation": "We discussed Redis and an in-process cache. Redis would support multiple instances. An in-process cache would avoid a service dependency. No decision yet; owner and date are unknown.",
+    "tools": []
+  },
+  "success_criteria": [
+    "Produces a usable draft preserving both options and trade-offs.",
+    "States that the decision is pending and does not invent owner, date, or consensus.",
+    "Does not claim it saved a page or require connection setup to finish the draft."
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "name": "Report changes rather than recent edits",
+  "skills": ["notion-weekly-project-digest"],
+  "query": "Draft the Orbit update for September 28 through October 4, 2026, UTC. Use https://notion.so/orbit. Keep it in chat.",
+  "context": {
+    "sources": {
+      "https://notion.so/orbit": "Task database https://notion.so/orbit-tasks. Previous update https://notion.so/sept27.",
+      "https://notion.so/sept27": "September 27 snapshot: Rehearsal open; Docs Done; Alerts blocked on vendor since September 25; Patch not merged.",
+      "https://notion.so/orbit-tasks": {
+        "data_source_id": "orbit-tasks-source",
+        "properties": {
+          "Task": "title",
+          "State": ["Open", "Done", "Blocked"],
+          "Completed": "date",
+          "Project": {
+            "type": "relation",
+            "target": "projects-source"
+          }
+        }
+      },
+      "https://notion.so/rehearsal-proof": "September 30, 2026 UTC: rollback rehearsal passed.",
+      "https://notion.so/patch-proof": "October 1, 2026 UTC: patch merged. Rollout approval pending."
+    },
+    "query_routes": [
+      {
+        "intent": "Read Orbit tasks and unresolved blockers for the reporting period",
+        "records": [
+          {
+            "url": "https://notion.so/rehearsal",
+            "Task": "Rehearsal",
+            "State": "Done",
+            "Completed": "2026-09-30",
+            "evidence": "https://notion.so/rehearsal-proof"
+          },
+          {
+            "url": "https://notion.so/docs",
+            "Task": "Docs",
+            "State": "Done",
+            "Completed": "2026-09-20",
+            "last_edited": "2026-10-02"
+          },
+          {
+            "url": "https://notion.so/alerts",
+            "Task": "Alerts",
+            "State": "Blocked",
+            "last_edited": "2026-09-25",
+            "note": "Awaiting vendor fix."
+          },
+          {
+            "url": "https://notion.so/patch",
+            "Task": "Patch",
+            "State": "Open",
+            "evidence": "https://notion.so/patch-proof"
+          }
+        ],
+        "complete": true
+      }
+    ],
+    "tools": ["fetch", "query-data-sources", "create-pages", "update-page"]
+  },
+  "success_criteria": [
+    "Reports rehearsal completion within the period and cites the verification evidence.",
+    "Does not count the recently edited Docs task as newly completed.",
+    "Carries forward the old, still unresolved Alerts blocker as continuing.",
+    "Distinguishes patch merge from release and preserves pending rollout approval.",
+    "Produces the draft in chat without task writes, new pages, or messages."
+  ]
+}

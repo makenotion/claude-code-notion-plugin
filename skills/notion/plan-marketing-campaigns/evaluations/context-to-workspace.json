@@ -1,0 +1,43 @@
+{
+  "name": "context-to-workspace",
+  "skills": ["notion-plan-marketing-campaigns"],
+  "query": "Make a marketing home for our launch from this chat and our brief. Create it under https://notion.so/team-home.",
+  "context": {
+    "conversation": "We need a launch blog and a LinkedIn post. Mira owns the blog draft. No publish dates agreed. Keep it clean and compact.",
+    "sources": {
+      "https://notion.so/team-home": "Empty authorized destination. No existing workspace or tracker.",
+      "https://notion.so/source": "Launch brief: audience is small design teams; message is faster feedback. Blog draft assigned to Mira. LinkedIn post is an idea, not approved."
+    },
+    "search_routes": [
+      {
+        "intent": "Find source material for the requested workspace",
+        "results": [
+          {
+            "url": "https://notion.so/source",
+            "title": "Source notes"
+          }
+        ]
+      },
+      {
+        "intent": "Find existing workspace or tracker",
+        "results": []
+      }
+    ],
+    "tools": [
+      "fetch",
+      "search",
+      "connector-search",
+      "get-users",
+      "create-pages",
+      "create-database",
+      "create-view",
+      "query-data-sources"
+    ]
+  },
+  "success_criteria": [
+    "Creates two distinct content items, leaves publish dates unset, preserves Mira ownership without inventing a user identity, and keeps the unapproved LinkedIn idea visible outside a date-only calendar.",
+    "Uses chat context without asking the user to restate it; fetches the source and destination before populating.",
+    "Creates a populated home with working navigation, clear hierarchy, and a first action; links source material and preserves original notes.",
+    "Verifies populated content and view semantics; reports visual inspection honestly."
+  ]
+}

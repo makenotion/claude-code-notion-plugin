@@ -1,0 +1,21 @@
+{
+  "name": "reference-workspace",
+  "skills": ["notion-build-my-engineering-wiki"],
+  "query": "Create \"Relay · Engineering · Skill test\", a new private engineering workspace using fictional release context. Do not reuse or edit previous Relay pages. Release0.9 is retry-safe delivery. Next checkpoint Nov2 2026. The decision blocking rollout is lock scope for concurrent replay requests.\nWork: Handle concurrent replay keys (Blocked,P0,Sam Rivera,Oct30,API)—choose lock scope and prove duplicate requests do not deliver twice. Add retry conflict response (Review,P1,Ari Kim,Oct30,API)—document conflict behavior and test same-key/different-payload handling. Show pending delivery state (Building,P1,Noor Ali,Nov2,Client)—show pending vs delivered and preserve accessible feedback. Add cleanup lag metric (Ready,P2,Sam,Nov3,Reliability)—instrument queue cleanup age and explain threshold selection. Replay integration tests (Done,P1,Ari,Oct28,API)—covers replay success and duplicate delivery. Delivery tracing (Done,P2,Sam,Oct28,Reliability)—correlates attempt and delivery IDs.\nDocs: Retry-safe delivery spec (proposal awaiting lock decision): request key, durable deduplication, conflict behavior and rollout gates. Decision: retain seven-day replay keys (accepted in this fictional brief). Runbook: delayed delivery (current): inspect attempt/delivery correlation, distinguish pending from duplicate, collect evidence before retry; escalation and dashboard URLs not supplied.\nGive engineers a clear release overview and useful technical library. No external issue tracker owns this fictional work. No invented commands, metrics or real user assignments.",
+  "context": {
+    "execution": "Live testing only when explicitly authorized; isolated private sample destinations. Otherwise supply a stateful mock.",
+    "reference": "Use the skill’s documented layout guidance; compare functionality and rendered hierarchy, not exact prose."
+  },
+  "success_criteria": [
+    "Release interpretation beside live status-count chart before detailed work.",
+    "Chart totals match six records; blocker remains prominent; open view has four.",
+    "Spec/proposal/accepted decision/runbook are clearly differentiated and substantive.",
+    "No extra design coaching; revised skill alone supplies composition.",
+    "Read and visually inspect saved output; failures repaired by runner using skill guidance, not reviewer polish.",
+    "Preserve existing comparison pages and unrelated pages.",
+    "Six work records and three technical docs preserve all supplied states. Chart status counts are 1 Blocked, 1 Building, 1 Review, 1 Ready and 2 Done; Open work has four.",
+    "The summary/chart remains above the native work/library tabs; a misplaced tab group is repaired and read back.",
+    "Accepted retention policy remains distinct from proposed lock design; no invented readiness percentage appears.",
+    "At normal desktop zoom with the sidebar visible, the full-width home shows the release decision and chart before detailed work; title, status, priority and engineer fit together in the work table."
+  ]
+}

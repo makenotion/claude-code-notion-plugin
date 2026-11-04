@@ -1,0 +1,22 @@
+{
+  "name": "reference-workspace",
+  "skills": ["notion-create-my-team-handbook"],
+  "query": "Set up a private operations workspace \"Juniper · Team guide\" for our fictional design studio. Create a separate sample; do not change prior Juniper pages. Employees need findable guidance and operators need to track requests.\nGuidance: Your first week (People, steward Lena Ortiz, current): arrange buddy and access, read current client brief, meet project lead, check access works. Buy a tool or service (Finance, Owen Brooks, current): state purpose, cost and billing owner; obtain review before purchase; record renewal and receipt. Hand off client work (Delivery, Lena, review due): package approved files, write handoff note, confirm recipient and acceptance; current review question is who owns follow-up. Plan time away (People, Lena,current): propose dates, agree coverage with lead, document handoff, update availability after agreement. These are fictional proposed procedures, not real company policy; no financial threshold or policy-review dates supplied.\nRequests: Analytics access for new designer (Access,In progress,Lena,due Oct30 2026,next confirm minimum access); Renew testing tool (Purchase,Waiting,Owen,Nov2,next budget decision); November starter pack (Onboarding,New,Lena,Nov5,next assemble access checklist); Contractor access closed (Access,Done,Owen,Oct28).\nUse a usable procedure library and request desk with clear status, responsibility and due dates. Names are fictional text, not actual users.",
+  "context": {
+    "execution": "Live testing only when explicitly authorized; isolated private sample destinations. Otherwise supply a stateful mock.",
+    "reference": "Evaluate the intended employee directory and operator queue by their saved hierarchy and usable record content."
+  },
+  "success_criteria": [
+    "Intent routes lead to substantive procedures; library and request tracking have distinct surfaces.",
+    "Steward/review state visible; open and completed filters correct.",
+    "Fictional proposed guidance is not represented as approved real policy.",
+    "No extra design coaching; revised skill alone supplies composition.",
+    "Read and visually inspect saved output; failures repaired by runner using skill guidance, not reviewer polish.",
+    "Preserve existing comparison pages and unrelated pages.",
+    "Four guidance records and four requests preserve the supplied content. Open requests has three; Completed has one.",
+    "Guidance review state and steward remain distinct from actual organizational approval; unspecified thresholds and review dates stay unset.",
+    "All content and settings writes use Notion Dev MCP; UI is read-only inspection.",
+    "At supported page width, compact intent routes allow the real guidance library to begin on the first screen; detailed explanations stay on records while the proposed-guidance designation remains visible.",
+    "At constrained width, primary library keeps procedure title, steward and review visible ahead of secondary area metadata."
+  ]
+}
