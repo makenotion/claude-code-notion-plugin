@@ -1,0 +1,75 @@
+{
+  "name": "Discover a named spec and save its plan",
+  "skills": ["notion-spec-to-implementation"],
+  "query": "Create an implementation plan for the User Authentication spec and save it in Engineering Plans. Do not create task pages yet.",
+  "context": {
+    "tool_access": {
+      "current_tool_access": {
+        "search": {
+          "status": "available"
+        },
+        "create_pages": {
+          "status": "available"
+        }
+      }
+    },
+    "search_routes": [
+      {
+        "intent": "Find the User Authentication spec",
+        "results": [
+          {
+            "url": "https://notion.so/auth-old",
+            "title": "User Authentication spec (archived)",
+            "snippet": "Superseded prototype requirements."
+          },
+          {
+            "url": "https://notion.so/auth-current",
+            "title": "User Authentication spec",
+            "snippet": "Approved current application spec."
+          },
+          {
+            "url": "https://notion.so/auth-vendor",
+            "title": "Vendor authentication spec",
+            "snippet": "Vendor integration, separate project."
+          }
+        ]
+      },
+      {
+        "intent": "Find Engineering Plans",
+        "results": [
+          {
+            "url": "https://notion.so/marketing-plans",
+            "title": "Marketing Plans",
+            "snippet": "Campaign plans."
+          },
+          {
+            "url": "https://notion.so/engineering-plans",
+            "title": "Engineering Plans",
+            "snippet": "Implementation plan library."
+          }
+        ]
+      }
+    ],
+    "sources": {
+      "https://notion.so/auth-old": "Archived prototype uses plaintext passwords. Superseded by https://notion.so/auth-current.",
+      "https://notion.so/auth-current": "Approved: email/password login and logout using the approved password-hashing library. Acceptance: correct credentials sign in; wrong credentials receive a generic error; logout invalidates the session. Password reset is out of scope. Session expiry remains undecided.",
+      "https://notion.so/auth-vendor": "Vendor integration uses OAuth. Not the application login project.",
+      "https://notion.so/marketing-plans": "Marketing campaign planning parent.",
+      "https://notion.so/engineering-plans": {
+        "data_source_id": "engineering-plans-source",
+        "properties": {
+          "Plan": "title",
+          "State": ["Draft", "Approved"]
+        }
+      }
+    },
+    "tools": ["get-tool-access", "search", "fetch", "create-pages"]
+  },
+  "success_criteria": [
+    "Discovers and fetches the current approved spec and Engineering Plans database using available search results.",
+    "Creates one plan in engineering-plans-source using actual Plan and State properties, without marking it Approved.",
+    "Covers login, logout, approved password hashing, and validation of all three acceptance criteria; links to the source spec.",
+    "Preserves the unresolved expiry policy and password-reset exclusion; does not adopt plaintext passwords or the unrelated vendor OAuth design.",
+    "Creates no task pages, does not start implementation, and returns the saved plan link."
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "name": "Discover project context for meeting preparation",
+  "skills": ["notion-meeting-intelligence"],
+  "query": "Prepare a 30-minute Orbit launch readiness agenda and save it in the project meeting area. Carry forward any open actions from the last review.",
+  "context": {
+    "tool_access": {
+      "current_tool_access": {
+        "search": {
+          "status": "available"
+        },
+        "create_pages": {
+          "status": "available"
+        }
+      }
+    },
+    "search_routes": [
+      {
+        "intent": "Find the Orbit project or launch readiness materials",
+        "results": [
+          {
+            "url": "https://notion.so/orbit-archive",
+            "title": "Orbit launch",
+            "snippet": "Archived 2024 prototype."
+          },
+          {
+            "url": "https://notion.so/orbit-project",
+            "title": "Orbit launch project",
+            "snippet": "Current launch readiness project."
+          },
+          {
+            "url": "https://notion.so/orbit-sales",
+            "title": "Orbit sales campaign",
+            "snippet": "Sales collateral; not the launch project."
+          }
+        ]
+      },
+      {
+        "intent": "Find the current Orbit last review or project meeting area",
+        "results": [
+          {
+            "url": "https://notion.so/orbit-review",
+            "title": "Orbit readiness review",
+            "snippet": "Most recent project review."
+          },
+          {
+            "url": "https://notion.so/orbit-meetings",
+            "title": "Orbit project meetings",
+            "snippet": "Internal launch project meeting area."
+          }
+        ]
+      }
+    ],
+    "sources": {
+      "https://notion.so/orbit-archive": "Archived prototype. Launch completed in 2024. Not the current project.",
+      "https://notion.so/orbit-project": "Current launch target: October 20, 2026. Open blocker: rollback rehearsal. Most recent review: https://notion.so/orbit-review. Meeting area: https://notion.so/orbit-meetings.",
+      "https://notion.so/orbit-sales": "Campaign assets only; no readiness decisions.",
+      "https://notion.so/orbit-review": "October 2 review: Maya owns the rollback rehearsal, still open. Lee completed the alert audit. A go/no-go decision is pending.",
+      "https://notion.so/orbit-meetings": "Internal Orbit project meeting parent; agendas belong here."
+    },
+    "tools": ["get-tool-access", "search", "fetch", "create-pages"]
+  },
+  "success_criteria": [
+    "Finds the current Orbit project and fetches the project and last review instead of using the archived launch.",
+    "Carries forward Maya's open rehearsal action and the pending go/no-go decision; does not reopen Lee's completed audit.",
+    "Creates one agenda under the discovered Orbit meeting parent with time allocations totaling at most 30 minutes.",
+    "Cites the project and review where needed and returns the created agenda link.",
+    "Does not create an unrequested pre-read, task pages, or attendee notifications."
+  ]
+}

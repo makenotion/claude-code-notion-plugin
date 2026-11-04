@@ -1,0 +1,14 @@
+{
+  "name": "Small meeting from supplied context",
+  "skills": ["notion-meeting-intelligence"],
+  "query": "Draft only a 15-minute agenda for my internal check-in with Lee. We need to review the cache rollout, decide whether to expand beyond 10%, and assign the monitoring follow-up.",
+  "context": {
+    "tools": ["search", "fetch", "create-pages"]
+  },
+  "success_criteria": [
+    "Returns one concise agenda in chat with time allocations totaling at most 15 minutes.",
+    "Includes rollout review, the expansion decision, and assigning the follow-up.",
+    "Does not create a pre-read, save pages, or perform unnecessary searches.",
+    "Does not claim the expansion decision has already been made."
+  ]
+}

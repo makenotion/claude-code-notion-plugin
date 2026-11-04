@@ -1,5 +1,8 @@
 # Research Summary Template
 
+Adapt to the requested depth. Omit empty or redundant sections; the illustrated
+number of findings, options, and actions is not a quota.
+
 Use this for most research requests. See [research-summary-format.md](research-summary-format.md) for when to use this format.
 
 ```markdown

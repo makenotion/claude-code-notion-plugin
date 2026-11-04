@@ -1,0 +1,35 @@
+{
+  "name": "Disclose incomplete evidence and unresolved conflict",
+  "skills": ["notion-research-documentation"],
+  "query": "What did the product team decide this month about the rollout? Answer in chat.",
+  "context": {
+    "tool_access": {
+      "search": "available",
+      "edited_date_filter": "unavailable"
+    },
+    "search_response": {
+      "notices": [
+        "Edited-date filter was dropped. Connected Slack was not searched."
+      ],
+      "results": [
+        {
+          "url": "https://notion.so/rollout-a"
+        },
+        {
+          "url": "https://notion.so/rollout-b"
+        }
+      ]
+    },
+    "sources": {
+      "https://notion.so/rollout-a": "October 2 proposal: expand to 50%; decision pending.",
+      "https://notion.so/rollout-b": "October 3 notes: stay at 10% until review; no recorded approval or supersession."
+    },
+    "tools": ["get-tool-access", "search", "fetch"]
+  },
+  "success_criteria": [
+    "Checks returned evidence and does not assert a final decision unsupported by the pages.",
+    "Explains the conflict and which decision evidence is missing.",
+    "Discloses that Slack was not searched and the requested date filter was unavailable.",
+    "Does not treat empty follow-up results as proof no decision exists or retry unsupported filters repeatedly."
+  ]
+}

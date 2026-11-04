@@ -1,10 +1,21 @@
-# Progress Tracking
+# Progress tracking
+
+Use these patterns for requested tracking or actual implementation. Record only
+observed progress and meaningful changes; planning alone does not start work.
+Use the existing status schema and completion criteria. Reuse notes instead of
+adding repetitive updates, and link supporting tests or deliverables. Examples
+of metrics and timelines below are illustrative, not facts to copy.
+
+Daily or weekly reporting applies when the user or team workflow calls for it;
+this guide does not schedule future updates. Notify or tag other people only when
+requested. Compute metrics from complete data for the stated scope, or label them
+as partial. Fetch current task state before changing it.
 
 ## Update Frequency
 
 ### Daily Updates
 
-For active implementation work:
+When daily reporting is part of the requested workflow:
 
 **What to update**:
 
@@ -288,7 +299,7 @@ When updating:
 1. Update Status property
 2. Add progress note explaining change
 3. Update related tasks if needed
-4. Notify relevant people via comment
+4. Notify relevant people via comment only when requested
 
 Example:
 properties: { "Status": "In Progress" }
@@ -336,7 +347,7 @@ If blocker needs escalation:
 
 ```
 1. Update blocker status in task
-2. Add comment tagging stakeholder
+2. Add comment tagging stakeholder only when requested
 3. Update plan with blocker impact
 4. Propose mitigation if possible
 ```

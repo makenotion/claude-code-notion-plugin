@@ -1,0 +1,18 @@
+{
+  "name": "preview-and-provenance",
+  "skills": ["notion-plan-marketing-campaigns"],
+  "query": "Show me a starter layout in chat using only Notion-created templates. Do not create anything yet.",
+  "context": {
+    "conversation": "We need a launch blog and a LinkedIn post. Mira owns the blog draft. No publish dates agreed. Keep it clean and compact.",
+    "tools": ["fetch", "search", "create-pages"],
+    "sources": {},
+    "web_responses": {
+      "https://www.notion.com/templates/content-calendar": "Creator: Notion. Preview unavailable. A recommended alternative has creator Community Studio."
+    }
+  },
+  "success_criteria": [
+    "Produces a useful domain-specific preview in chat with no mutations.",
+    "Uses the verified first-party reference or documented adaptation; does not select the community alternative.",
+    "Does not claim an exact gallery layout, definitive popularity rank, or completed Notion workspace."
+  ]
+}

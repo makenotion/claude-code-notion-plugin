@@ -1,0 +1,19 @@
+{
+  "name": "reference-workspace",
+  "skills": ["notion-organize-my-semester"],
+  "query": "Organize my fall term into a private study workspace named \"Fall term · Study desk · Skill test\". Make a new independent sample and leave every existing school/semester page untouched. All information below is fictional. Use it to create useful course and assignment pages.\nCourses: Design studio (room Studio 4, office hours Tue14–15); Principles of marketing (B204, Wed11–12); Applied statistics (C110, Thu15–16). Current term Fall2026.\nAssignments: Competitor analysis, Marketing, Oct30 2026, In progress,15%: compare two architecture practice tools on audience, positioning, proof and channels; submit a 1200-word evidence-backed analysis. Light & shadow critique, Design, Nov2, In progress,25%: build a paper light model, photograph three lighting conditions, annotate decisions for critique. Confidence interval problem set, Statistics, Nov3, Not started,10%: calculate and interpret sample intervals, state assumptions and explain why confidence is not a probability about the fixed parameter. Segmentation exercise, Marketing, Nov6, Not started,10%: distinguish needs-based segments and propose one positioning statement per segment. Wayfinding observation journal, Design, Oct27, Submitted,10%.\nPriorities: finish competitor comparison then prepare studio critique. Reminders: book model photography time; bring interval questions to office hours. Course notes should retain those ideas and offer suggested study questions, not solve the graded assignments. I want courses, useful material, and upcoming work easy to find.",
+  "context": {
+    "execution": "Live testing only when explicitly authorized; isolated private sample destinations. Otherwise supply a stateful mock.",
+    "reference": "Use the skill’s documented layout guidance; compare functionality and rendered hierarchy, not exact prose."
+  },
+  "success_criteria": [
+    "Reminders beside course cards and upcoming assignment view; essential fields fit.",
+    "Course-assignment relations; notes and briefs contain useful material.",
+    "Calendar and completed views work; submitted work excluded from upcoming.",
+    "No extra design coaching; revised skill alone supplies composition.",
+    "Read and visually inspect saved output. Use the runtime guidance to produce the design; record any UI-assisted refinements separately from an independent skill test.",
+    "Preserve existing comparison pages and unrelated pages.",
+    "Three courses and five assignments preserve dates, weights and states; Upcoming has four, Completed has one, Calendar has five, Undated has zero for this brief.",
+    "Each course view excludes other courses, and static next-assignment cards are explicitly snapshots."
+  ]
+}

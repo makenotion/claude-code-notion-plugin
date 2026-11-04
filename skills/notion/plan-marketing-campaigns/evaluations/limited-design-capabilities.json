@@ -1,0 +1,26 @@
+{
+  "name": "limited-design-capabilities",
+  "skills": ["notion-plan-marketing-campaigns"],
+  "query": "Create a beautiful, simple starting page under https://notion.so/home from what you know. Choose the layout for me.",
+  "context": {
+    "conversation": "I am starting fresh and have no real records or images to import yet. Please do not invent examples.",
+    "sources": {
+      "https://notion.so/home": "Empty destination."
+    },
+    "tool_access": {
+      "create-pages": true,
+      "create-database": false,
+      "create-view": false,
+      "set-cover": false,
+      "create-button": false,
+      "create-columns": false
+    },
+    "tools": ["fetch", "search", "get-tool-access", "create-pages"]
+  },
+  "success_criteria": [
+    "Creates a concise readable page with meaningful hierarchy and a specific domain-appropriate next step without a style questionnaire.",
+    "Uses supported text, headings, and links instead of fake buttons, unsupported columns, or claims of live views.",
+    "Keeps empty states honest and helpful; does not fabricate tasks, metrics, sources, covers, or completion states.",
+    "Reports unperformed rendered verification accurately rather than claiming mobile or visual checks passed."
+  ]
+}

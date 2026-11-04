@@ -1,0 +1,23 @@
+{
+  "name": "reference-workspace",
+  "skills": ["notion-set-up-my-project"],
+  "query": "Set up a private EPD project system for fictional Atlas. Create a new Projects database and shared Tasks, Docs and Meetings collections in an independent private home \"Atlas · Projects\". Do not touch existing Atlas systems. Main project: Self-serve onboarding—help new teams reach their first shared project without a sales call. Building, lead Priya Shah (Product), Noor Ali (Design), Theo Park (Engineering), target Nov20 2026. Pilot milestone Nov6: setup flow and research review ready. Decision still open: creator cannot invite teammates. Scope setup, first project, invites, activation measurement; billing out of scope.\nTasks: Confirm activation event (Done,Priya,Oct28); Test first-run prototype (Doing,Noor,Nov2); Resolve invite permission edge case (Blocked,Theo,Nov3); Build workspace setup flow (Doing,Theo,Nov6); Prepare launch measurement (To do,Priya,Nov10); Review accessibility (To do,Noor,Nov12). Create useful completion criteria.\nDocs: Product brief (Accepted), First-run design review (Review), Decision: invite after first value (Accepted; separate from unresolved inability-to-invite edge case). Develop substantive draft bodies from the supplied facts, labeling elaborations as proposed. Link work to the relevant docs.\nMeetings: weekly project reviews Monday30min; prepare Nov2 and Nov9 agendas and an async standup working format. No past meeting outcomes or calendar invitations. Names are fictional text.\nSecond project: Workspace permissions, Discovery, lead Theo, target Dec4, outcome predictable guest access. One task for it: Map guest access scenarios, To do,Theo,undated. This should remain separate from onboarding work. I want an immediately usable project home with team, tasks, docs and meeting notes.",
+  "context": {
+    "execution": "Live testing only when explicitly authorized; isolated private sample destinations. Otherwise supply a stateful mock.",
+    "reference": "Connected EPD workspace: compact portfolio, native metadata, scoped work views and substantive record bodies."
+  },
+  "success_criteria": [
+    "Project is a record in reusable Projects with related Tasks, Docs and Meetings.",
+    "First screen exposes status/lead/target, milestone and team; native work tabs.",
+    "Onboarding views exclude the second project task; prepared agendas are not claimed scheduled.",
+    "No extra design coaching; revised skill alone supplies composition.",
+    "Read and visually inspect saved output; failures repaired by runner using skill guidance, not reviewer polish.",
+    "Preserve existing comparison pages and unrelated pages.",
+    "Two Projects records share Tasks, Docs and Meetings. The main project has six tasks, three docs, two dated agendas and a reusable async standup; any additional meeting format has a distinct purpose and is not fabricated history.",
+    "The second project task is excluded from every main-project view; undated second-project work remains available in shared Tasks.",
+    "First project screen shows status, lead, target, milestone, team and working tabs; native record layouts are configured.",
+    "Every Notion content and settings mutation uses the connected Notion MCP; browser/UI is read-only inspection even when MCP rejects a layout setting.",
+    "Essential native status/date metadata remains visible; secondary properties may move out of the main reading flow when they obscure working views. Source properties are retained, and the lead remains legible in the team area.",
+    "The full outcome appears once in the first screen. Portfolio cards use a short faithful summary when the full outcome clips, preserving the complete source outcome."
+  ]
+}

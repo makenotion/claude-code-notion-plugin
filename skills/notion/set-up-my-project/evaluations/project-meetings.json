@@ -1,0 +1,36 @@
+{
+  "name": "project-meetings",
+  "skills": ["notion-set-up-my-project"],
+  "query": "Set up our permissions project from these notes.",
+  "context": {
+    "conversation": "We use short standups. The role matrix is in design review; implementation is blocked on whether guests can invite other guests. Maya leads design. No meeting date or other participants have been agreed. Share an initial project home before asking questions.",
+    "sources": {},
+    "tool_access": {
+      "create-pages": true,
+      "create-database": true,
+      "create-view": true,
+      "create-meeting-note": true,
+      "create-database-template": true
+    },
+    "tools": [
+      "fetch",
+      "search",
+      "get-tool-access",
+      "create-pages",
+      "create-database",
+      "create-view",
+      "create-meeting-note",
+      "query-data-sources",
+      "create-database-template"
+    ]
+  },
+  "success_criteria": [
+    "Initial home includes usable meeting-note storage/view, a reusable standup agenda, and an initial prepared agenda without first asking about cadence or participants.",
+    "Uses known standup cadence instead of adding a weekly meeting; seeds the actual guest-invite blocker and links relevant project tasks/docs.",
+    "Uses the dedicated meeting-note tool for meeting notes and a native database template for the reusable agenda.",
+    "Keeps undated prepared notes visible and separates them from held-meeting history; outcomes remain capture prompts, not invented decisions or attendee updates.",
+    "Does not turn Maya into a confirmed attendee, guess dates, schedule events, send invitations, or enable recording/automation.",
+    "Connects follow-up actions to canonical tasks and preserves the meeting-to-project link; does not create a competing task list.",
+    "Shares the initial home link before asking only remaining tuning questions; no repeated cadence question."
+  ]
+}

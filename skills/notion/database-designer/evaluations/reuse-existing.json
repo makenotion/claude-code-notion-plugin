@@ -1,0 +1,69 @@
+{
+  "name": "Make customer requests easier to act on",
+  "skills": ["notion-database-designer"],
+  "query": "Customer requests keep getting lost. Start from https://notion.so/operations and make it easy to see new requests, who is handling open work, and which open requests need extra help. Keep the information we already have.",
+  "context": {
+    "sources": {
+      "https://notion.so/operations": "Operations hub. Support requests are managed in https://notion.so/requests",
+      "https://notion.so/requests": {
+        "data_source_id": "requests-source",
+        "properties": {
+          "Request": "title",
+          "State": ["New", "Working", "Closed"],
+          "Owner": "person",
+          "Customer": {
+            "type": "relation",
+            "target": "accounts-source"
+          }
+        },
+        "views": [
+          {
+            "id": "all-requests",
+            "name": "All requests",
+            "filter": null
+          }
+        ]
+      }
+    },
+    "query_routes": [
+      {
+        "intent": "Inspect existing Requests records",
+        "records": [
+          {
+            "url": "https://notion.so/request-a",
+            "Request": "Billing export issue",
+            "State": "Working",
+            "Owner": "user-lee",
+            "Customer": ["https://notion.so/account-a"]
+          }
+        ],
+        "complete": true
+      }
+    ],
+    "tool_access": {
+      "current_tool_access": {
+        "update_data_source": {
+          "status": "available"
+        },
+        "create_view": {
+          "status": "available"
+        }
+      }
+    },
+    "tools": [
+      "get-tool-access",
+      "fetch",
+      "query-data-sources",
+      "update-data-source",
+      "create-view",
+      "create-database"
+    ]
+  },
+  "success_criteria": [
+    "Reuses requests-source and adds a way to identify requests needing extra help without duplicating the database or Customer relation.",
+    "Makes new requests, ownership of open work, and open requests needing extra help easy to find through appropriate views or groups; equivalent names and layouts are acceptable.",
+    "Preserves existing records, property values, relation targets, and the All requests view.",
+    "Does not represent filtered views as access restrictions.",
+    "Verifies the resulting schema and filters and returns the reused database link."
+  ]
+}

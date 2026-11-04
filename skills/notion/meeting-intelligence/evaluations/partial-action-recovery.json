@@ -1,0 +1,59 @@
+{
+  "name": "Recover a partially successful action batch",
+  "skills": ["notion-meeting-intelligence"],
+  "query": "Continue creating the tasks from https://notion.so/meeting. The last batch timed out. Use https://notion.so/tasks and link to https://notion.so/project. Avoid duplicates.",
+  "context": {
+    "conversation": "User authorized two commitments: Lee validates alerts by October 8, 2026; Maya runs rehearsal with no due date. The batch reported alerts-task created, then timed out before reporting the rehearsal result.",
+    "sources": {
+      "https://notion.so/meeting": "October 5: Lee committed to alert validation by October 8; Maya committed to rehearsal, no date. Project: https://notion.so/project. Existing meeting record in meetings-source.",
+      "https://notion.so/project": "Project in projects-source.",
+      "https://notion.so/tasks": {
+        "data_source_id": "tasks-source",
+        "properties": {
+          "Task": "title",
+          "Owner": "person",
+          "Due": "date",
+          "Meeting": {
+            "type": "relation",
+            "target": "meetings-source"
+          },
+          "Project": {
+            "type": "relation",
+            "target": "projects-source"
+          }
+        }
+      }
+    },
+    "query_routes": [
+      {
+        "intent": "Find created tasks for this meeting or project",
+        "records": [
+          {
+            "url": "https://notion.so/alerts-task",
+            "Task": "Validate alerts",
+            "Owner": "user-lee",
+            "Due": "2026-10-08",
+            "Meeting": ["https://notion.so/meeting"],
+            "Project": ["https://notion.so/project"]
+          },
+          {
+            "url": "https://notion.so/rehearsal-task",
+            "Task": "Run rehearsal",
+            "Owner": "user-maya",
+            "Due": null,
+            "Meeting": ["https://notion.so/meeting"],
+            "Project": []
+          }
+        ],
+        "complete": true
+      }
+    ],
+    "tools": ["fetch", "query-data-sources", "create-pages", "update-page"]
+  },
+  "success_criteria": [
+    "Checks persisted tasks before retrying either creation.",
+    "Reuses both existing tasks and repairs the missing project relation on rehearsal-task only.",
+    "Preserves owners, the supported alert deadline, and the empty rehearsal deadline.",
+    "Creates no duplicate task or meeting and returns the recovered links with accurate completion reporting."
+  ]
+}

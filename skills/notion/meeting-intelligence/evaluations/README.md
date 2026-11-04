@@ -1,112 +1,30 @@
-# Meeting Intelligence Skill Evaluations
+# Meeting intelligence evaluations
 
-Evaluation scenarios for testing the Meeting Intelligence skill across different Claude models.
+Follow the [shared evaluation protocol](../../evaluations.md) for fixture setup,
+baseline comparisons, quality gates, usage measurements, and selection tests.
+These scenarios are not instructions to load at runtime.
 
-## Purpose
+## Scenarios
 
-These evaluations ensure the Meeting Intelligence skill:
+| Fixture                                                        | Capability                  | Main checks                                                                  |
+| -------------------------------------------------------------- | --------------------------- | ---------------------------------------------------------------------------- |
+| [decision-meeting-prep.json](decision-meeting-prep.json)       | Full decision preparation   | Both requested documents, options, risks, evidence, and timed agenda         |
+| [status-meeting-prep.json](status-meeting-prep.json)           | Status preparation          | Accurate task metrics and separate internal/external destinations            |
+| [agenda-only.json](agenda-only.json)                           | Short internal agenda       | No unnecessary pre-read, retrieval, or writes                                |
+| [post-meeting-update.json](post-meeting-update.json)           | Recurring meeting follow-up | Outcomes and actions preserved without unrequested tasks                     |
+| [current-external-context.json](current-external-context.json) | Customer research           | Current external evidence, analysis, and audience separation                 |
+| [save-draft.json](save-draft.json)                             | Saved draft                 | Draft status honors an explicit Notion destination                           |
+| [discover-meeting-context.json](discover-meeting-context.json) | Project discovery           | Find current project, previous actions, and meeting destination              |
+| [linked-actions.json](linked-actions.json)                     | Linked follow-up tasks      | Supported commitments, identity resolution, deduplication, and relations     |
+| [partial-action-recovery.json](partial-action-recovery.json)   | Partial-write recovery      | Reuse persisted tasks and repair missing relations without duplicate creates |
 
-- Gathers context from Notion workspace
-- Enriches with Claude research appropriately
-- Creates both internal pre-reads and external agendas
-- Distinguishes between Notion facts and Claude insights
-- Works consistently across Haiku, Sonnet, and Opus
+## Retained capability coverage
 
-## Evaluation Files
+Decision, status, brainstorm, sprint planning, retrospective, and 1:1 templates remain available. The four worked examples retain fuller project, executive, sprint, and customer workflows. Exercise each template and series organization with appropriate audience fixtures before a release.
 
-### decision-meeting-prep.json
+## Acceptance
 
-Tests preparation for a decision-making meeting.
-
-**Scenario**: Prep for database migration decision meeting  
-**Key Behaviors**:
-
-- Searches Notion for migration context (specs, discussions, options)
-- Fetches 2-3 relevant pages
-- Enriches with Claude research (decision frameworks, migration best practices)
-- Creates comprehensive internal pre-read with recommendation
-- Creates clean, professional external agenda
-- Clearly distinguishes Notion facts from Claude insights
-- Cross-links both documents
-
-### status-meeting-prep.json
-
-Tests preparation for a status update or review meeting.
-
-**Scenario**: Prep for project status review  
-**Key Behaviors**:
-
-- Gathers project metrics and progress from Notion
-- Fetches relevant pages (roadmap, tasks, milestones)
-- Adds Claude context (industry benchmarks, best practices)
-- Creates internal pre-read with honest assessment
-- Creates external agenda with structured flow
-- Includes source citations using mention-page tags
-- Time-boxes agenda items
-
-## Running Evaluations
-
-1. Enable the `meeting-intelligence` skill
-2. Submit the query from the evaluation file
-3. Verify the skill searches Notion first (not Claude research)
-4. Check that TWO documents are created (internal + external)
-5. Verify Claude enrichment adds value without replacing Notion content
-6. Test with Haiku, Sonnet, and Opus
-
-## Expected Skill Behaviors
-
-Meeting Intelligence evaluations should verify:
-
-### Notion Context Gathering
-
-- Searches workspace for relevant context first
-- Fetches specific pages (not generic)
-- Extracts key information from Notion content
-- Cites sources using mention-page tags
-
-### Claude Research Integration
-
-- Adds industry context, frameworks, or best practices
-- Enrichment is relevant and valuable (not filler)
-- Clearly distinguishes Notion facts from Claude insights
-- Research complements (doesn't replace) Notion content
-
-### Two-Document Creation
-
-- **Internal Pre-Read**: Comprehensive, includes strategy, recommendations, detailed pros/cons
-- **External Agenda**: Professional, focused on meeting flow, no internal strategy
-- Both documents are clearly labeled
-- Documents are cross-linked
-
-### Document Quality
-
-- Pre-read follows structure: Overview → Background → Current Status → Context & Insights → Discussion Points
-- Agenda follows structure: Details → Objective → Agenda Items (with times) → Decisions → Actions → Resources
-- Titles include date or meeting context
-- Content is actionable and meeting-ready
-
-## Creating New Evaluations
-
-When adding Meeting Intelligence evaluations:
-
-1. **Test different meeting types** - Decision, status, brainstorm, 1:1, sprint planning, retrospective
-2. **Vary complexity** - Simple updates vs. complex strategic decisions
-3. **Test with/without Notion content** - Rich workspace vs. minimal existing pages
-4. **Verify enrichment value** - Is Claude research genuinely helpful?
-5. **Check internal/external distinction** - Is sensitive info kept in pre-read only?
-
-## Example Success Criteria
-
-**Good** (specific, testable):
-
-- "Creates TWO documents (internal pre-read + external agenda)"
-- "Internal pre-read marked 'INTERNAL ONLY' or 'For team only'"
-- "Cites at least 2-3 Notion pages using mention-page tags"
-- "Agenda includes time allocations for each section"
-- "Claude enrichment includes decision frameworks or best practices"
-
-**Bad** (vague, untestable):
-
-- "Creates meeting materials"
-- "Gathers context effectively"
-- "Prepares well"
+Require factual fidelity, requested scope, and correct persisted state before
+comparing efficiency. Accept equivalent output structures and exposed tool names.
+Review both full-workflow and short-request results on each tested model; do not
+accept reduced token usage that drops requirements or weakens attribution.

@@ -2,7 +2,8 @@
 
 ## Basic Page Citation
 
-Always cite sources using Notion page mentions:
+For Notion sources in saved Notion content, use page mentions. For external
+sources or chat output, use ordinary Markdown links to the original source:
 
 ```markdown
 <mention-page url="https://notion.so/workspace/Page-Title-uuid">Page Title</mention-page>
@@ -46,7 +47,8 @@ According to the <mention-page url="...">Engineering Roadmap 2025</mention-page>
 
 ## Sources Section
 
-Always include a "Sources" section at document end:
+For longer reports, collect cited sources at the end. A short brief with clear
+inline citations does not need a duplicate list:
 
 ```markdown
 ## Sources
@@ -175,7 +177,7 @@ Before finalizing research:
 
 ✓ Every key claim has a source citation
 ✓ All page mentions have valid URLs
-✓ Sources section includes all cited pages
+✓ When included, the sources section includes all cited pages
 ✓ Outdated sources are noted as such
 ✓ Direct quotes are clearly marked
 ✓ Data sources are attributed

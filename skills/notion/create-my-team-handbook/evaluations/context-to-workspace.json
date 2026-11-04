@@ -1,0 +1,43 @@
+{
+  "name": "context-to-workspace",
+  "skills": ["notion-create-my-team-handbook"],
+  "query": "Create an operations home from our onboarding notes and existing process docs. Create it under https://notion.so/team-home.",
+  "context": {
+    "conversation": "Laptop setup needs a checklist. Equipment requests have no owner yet. Link our policies; do not copy them.",
+    "sources": {
+      "https://notion.so/team-home": "Empty authorized destination. No existing workspace or tracker.",
+      "https://notion.so/source": "Process notes: request a laptop, then IT enrolls it. Security policy lives at https://notion.so/security-policy. The equipment request has no agreed due date."
+    },
+    "search_routes": [
+      {
+        "intent": "Find source material for the requested workspace",
+        "results": [
+          {
+            "url": "https://notion.so/source",
+            "title": "Source notes"
+          }
+        ]
+      },
+      {
+        "intent": "Find existing workspace or tracker",
+        "results": []
+      }
+    ],
+    "tools": [
+      "fetch",
+      "search",
+      "connector-search",
+      "get-users",
+      "create-pages",
+      "create-database",
+      "create-view",
+      "query-data-sources"
+    ]
+  },
+  "success_criteria": [
+    "Links the authoritative security policy without copying it, distinguishes laptop setup steps from the individual equipment request, and leaves its owner and due date unknown.",
+    "Uses chat context without asking the user to restate it; fetches the source and destination before populating.",
+    "Creates a populated home with working navigation, clear hierarchy, and a first action; links source material and preserves original notes.",
+    "Verifies populated content and view semantics; reports visual inspection honestly."
+  ]
+}

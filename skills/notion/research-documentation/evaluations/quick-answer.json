@@ -1,0 +1,16 @@
+{
+  "name": "Direct answer from one sufficient source",
+  "skills": ["notion-research-documentation"],
+  "query": "In two sentences, what is the launch date in https://notion.so/launch? Answer here; do not save.",
+  "context": {
+    "sources": {
+      "https://notion.so/launch": "Approved launch date: October 20, 2026. This supersedes the previous October 13 target."
+    },
+    "tools": ["fetch", "search", "create-pages"]
+  },
+  "success_criteria": [
+    "Fetches the supplied source and answers with October 20, distinguishing the superseded date.",
+    "Includes the source link and obeys the two-sentence request.",
+    "Does not search, load report templates, or create a page when the source is sufficient."
+  ]
+}

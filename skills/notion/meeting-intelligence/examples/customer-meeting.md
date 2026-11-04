@@ -1,6 +1,10 @@
 # Example: Customer Meeting Prep
 
-**User Request**: "Prep for sales meeting with Acme Corp on Thursday"
+**User Request**: "Prep for our sales meeting with Acme Corp on Thursday. Save an internal pre-read in our sales team area and a customer agenda in the shared meeting area."
+
+This example assumes the facts below are in the supplied CRM and product sources.
+Verify current external claims with sources; suggested discussion points are analysis,
+not established facts about this customer.
 
 ## Workflow
 
@@ -33,18 +37,53 @@ Notion:notion-fetch (4 pages)
 - **Budget**: $50-75K/year range
 - **Competition**: Evaluating us vs. Competitor A and Competitor B
 
-### 3. Add Research Context
+### 3. Resolve the two destinations
 
-Claude research added:
+The example assumes established workspace configuration or user confirmation that
+Sales Team is internal-only and Acme Shared Meetings is approved for this customer.
+Do not infer access from page titles or an “Internal” label. If the audience is
+unknown, resolve it before saving sensitive content.
+
+Search for the named locations, then fetch the matching pages to confirm identity
+and project context. Reuse their returned IDs in the create calls below.
+
+```
+Notion:notion-search
+query: "Sales Team"
+
+Notion:notion-search
+query: "Acme Shared Meetings"
+
+Notion:notion-fetch
+id: "sales-team-parent-id"
+
+Notion:notion-fetch
+id: "acme-shared-meetings-parent-id"
+```
+
+Resolved destinations (illustrative IDs):
+
+| Material          | Parent page                      | Established audience          |
+| ----------------- | -------------------------------- | ----------------------------- |
+| Internal pre-read | `sales-team-parent-id`           | Internal sales team           |
+| Customer agenda   | `acme-shared-meetings-parent-id` | Sales team and Acme attendees |
+
+Use current exposed tool schemas and reuse any required tool-access check for
+these calls. Fetching page content alone does not prove its sharing permissions.
+
+### 4. Add research context
+
+assistant research added:
 
 - Fintech industry compliance requirements
 - Common integration needs for financial products
 - Typical procurement processes for Series B companies
 
-### 4. Create Internal Pre-Read
+### 5. Create internal pre-read
 
 ```
 Notion:notion-create-pages
+parent: { page_id: "sales-team-parent-id" }
 pages: [{
   properties: {
     title: "Acme Corp Meeting - Pre-Read (Internal)"
@@ -75,10 +114,11 @@ Recommend: $60K/year (mid-range of their budget)
 }]
 ```
 
-### 5. Create Meeting Agenda
+### 6. Create meeting agenda
 
 ```
 Notion:notion-create-pages
+parent: { page_id: "acme-shared-meetings-parent-id" }
 pages: [{
   properties: {
     title: "Acme Corp - Product Demo & Q&A"
@@ -114,9 +154,16 @@ Demonstrate how our platform solves Acme's workflow automation and integration c
 }]
 ```
 
-### 6. Link Resources
+### 7. Verify placement and link resources
 
-Connected agenda to CRM page, pricing sheet, and technical integration docs.
+Check each create result against its intended parent. If placement is not shown,
+fetch the created page and inspect its parent/path before reporting success.
+Do not change sharing settings as part of preparation.
+
+Linked the internal pre-read to CRM notes and internal pricing strategy. Linked the
+customer agenda only to customer-approved pricing and integration documentation.
+Kept internal page links out of the customer agenda and used separate destinations
+with the appropriate audiences; titles alone do not establish access permissions.
 
 ## Outputs
 

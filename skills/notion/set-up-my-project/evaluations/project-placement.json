@@ -1,0 +1,27 @@
+{
+  "name": "project-placement",
+  "skills": ["notion-set-up-my-project"],
+  "query": "Set up Saved views as an EPD project in Notion.",
+  "context": {
+    "conversation": "Saved views helps support leads save and reopen ticket filters. We need a project home, tasks, and docs. Draft the product brief and review the save/reopen flow; no owner or date is known. No destination or collaborators have been chosen.",
+    "sources": {
+      "https://notion.so/team": "Team home with Product projects at https://notion.so/product-projects and Infrastructure projects at https://notion.so/infra-projects.",
+      "https://notion.so/product-projects": "Projects database for product features, linked to shared Tasks and Docs.",
+      "https://notion.so/infra-projects": "Projects database for infrastructure work."
+    },
+    "tools": [
+      "fetch",
+      "search",
+      "get-tool-access",
+      "create-pages",
+      "create-database",
+      "create-view"
+    ]
+  },
+  "success_criteria": [
+    "Creates a useful private initial home with source-based tasks and docs before asking about placement or collaborators; does not silently create a Projects database or write to a guessed shared destination.",
+    "Shares the real initial home link and what is ready before asking a concise team question and a placement question with relevant named, linked Projects databases plus a create-new option.",
+    "Leaves unknown people, owners, and dates unset; the private draft remains usable if the user never answers.",
+    "Does not ask the user to design schemas or visual treatment, repeat known context, or complete an intake interview."
+  ]
+}

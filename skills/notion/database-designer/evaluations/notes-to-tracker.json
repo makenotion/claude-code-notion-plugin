@@ -1,0 +1,41 @@
+{
+  "name": "Turn scattered customer requests into an actionable tracker",
+  "skills": ["notion-database-designer"],
+  "query": "We're tracking customer requests in https://notion.so/customer-notes and things keep getting lost. Set up a simple tracker under https://notion.so/customer-team so we can see what needs attention, who is handling it, and what is done. Bring over the requests and keep our notes.",
+  "context": {
+    "sources": {
+      "https://notion.so/customer-team": "Customer team home. No existing request tracker or database is linked here. Notes: https://notion.so/customer-notes.",
+      "https://notion.so/customer-notes": "Requests from October 1: Acme export issue, Lee is investigating; Birch invoice request, nobody assigned; Cedar login issue, resolved. Follow-up notes: https://notion.so/customer-followup. No deadlines agreed.",
+      "https://notion.so/customer-followup": "October 3: Birch asked again about the same invoice request from October 1. Still unassigned; no new request."
+    },
+    "search_routes": [
+      {
+        "intent": "Find an existing customer request tracker in the Customer team area",
+        "results": []
+      }
+    ],
+    "users": [
+      {
+        "id": "user-lee",
+        "name": "Lee"
+      }
+    ],
+    "tools": [
+      "fetch",
+      "search",
+      "get-users",
+      "create-database",
+      "create-pages",
+      "create-view",
+      "query-data-sources"
+    ]
+  },
+  "success_criteria": [
+    "Creates one simple tracker under the supplied Customer team parent after checking the relevant existing context; does not require the user to specify field names or database types.",
+    "Carries over exactly three distinct requests with faithful details and source links, consolidating the two mentions of the Birch invoice request.",
+    "Shows Acme as ongoing with Lee's actual identity, Birch as needing attention with no assigned owner, and Cedar as resolved; does not invent dates or commitments.",
+    "Creates views that make unresolved requests, ownership of open work, and completed requests easy to find; equivalent names and layouts are acceptable.",
+    "Preserves both source-note pages and creates no sample work, unnecessary linked databases, or unsolicited messages.",
+    "Checks the populated tracker and returns its link with a brief explanation of how to use it, rather than claiming completion after creating an empty schema."
+  ]
+}

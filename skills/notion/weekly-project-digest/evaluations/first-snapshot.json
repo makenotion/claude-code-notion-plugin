@@ -1,0 +1,44 @@
+{
+  "name": "Handle a missing baseline and incomplete coverage",
+  "skills": ["notion-weekly-project-digest"],
+  "query": "Give me a brief weekly update for https://notion.so/pilot for September 28\u2013October 4, 2026. Tell me how much progress we made.",
+  "context": {
+    "sources": {
+      "https://notion.so/pilot": "New pilot with no earlier updates or historical snapshots. Tasks: https://notion.so/pilot-tasks",
+      "https://notion.so/pilot-tasks": {
+        "data_source_id": "pilot-source",
+        "properties": {
+          "Task": "title",
+          "State": ["Open", "Done"]
+        }
+      }
+    },
+    "query_routes": [
+      {
+        "intent": "Read Pilot tasks",
+        "records": [
+          {
+            "url": "https://notion.so/t1",
+            "Task": "Setup",
+            "State": "Done",
+            "last_edited": "2026-10-02"
+          },
+          {
+            "url": "https://notion.so/t2",
+            "Task": "Review",
+            "State": "Open"
+          }
+        ],
+        "complete": false,
+        "notice": "Additional records are inaccessible; no completion dates or history available."
+      }
+    ],
+    "tools": ["fetch", "query-data-sources", "search"]
+  },
+  "success_criteria": [
+    "Labels the result a current or first snapshot and discloses incomplete coverage.",
+    "States that Setup is currently marked Done without claiming it completed this week.",
+    "Does not invent week-over-week progress, a completion rate for the whole project, or historical transitions.",
+    "Provides a useful brief and explains the evidence needed to establish period progress."
+  ]
+}

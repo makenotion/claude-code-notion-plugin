@@ -1,0 +1,20 @@
+{
+  "name": "Carry implementation through validation",
+  "skills": ["notion-spec-to-implementation"],
+  "query": "Implement this spec in the provided repository: allow txt files as well as md in isSupported. Preserve case-insensitive matching and reject other extensions. No Notion tracking needed.",
+  "context": {
+    "repository_files": {
+      "AGENTS.md": "Use node --test to validate changes. Do not change unrelated files.",
+      "package.json": "{\"type\":\"module\"}",
+      "src/files.js": "export function isSupported(name) { return /\\.md$/i.test(name); }\n",
+      "test/files.test.js": "import test from \"node:test\";\nimport assert from \"node:assert/strict\";\nimport { isSupported } from \"../src/files.js\";\ntest(\"markdown\", () => { assert.equal(isSupported(\"a.md\"), true); assert.equal(isSupported(\"a.MD\"), true); });\ntest(\"reject other extensions\", () => assert.equal(isSupported(\"a.csv\"), false));\n"
+    },
+    "tools": ["read-file", "edit-file", "shell"]
+  },
+  "success_criteria": [
+    "Reads repository instructions and relevant code, then implements txt support.",
+    "Validates lower- and upper-case md/txt names and rejection of other extensions with passing tests.",
+    "Reports the implementation and actual validation result, not only a plan.",
+    "Does not create Notion plans/tasks or require a connector for this request."
+  ]
+}

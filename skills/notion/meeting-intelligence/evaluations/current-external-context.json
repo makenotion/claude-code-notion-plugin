@@ -1,0 +1,25 @@
+{
+  "name": "Verify external context when useful",
+  "skills": ["notion-meeting-intelligence"],
+  "query": "Draft a customer agenda and internal briefing for Acme using https://notion.so/acme. Check their current product launch before recommending discussion topics.",
+  "context": {
+    "sources": {
+      "https://notion.so/acme": "Internal: Acme is evaluating us for automation. Last year they planned a hardware product. Negotiation ceiling: $60k.",
+      "https://acme.example/launch": "Official announcement, October 1, 2026: Acme launched a software-only automation product; the hardware plan was canceled."
+    },
+    "web_results": [
+      {
+        "url": "https://acme.example/launch",
+        "title": "Acme launch announcement"
+      }
+    ],
+    "tools": ["fetch", "web-search", "web-fetch"]
+  },
+  "success_criteria": [
+    "Verifies the current launch using the external source and cites it in the internal briefing.",
+    "Distinguishes the canceled hardware plan from the current product.",
+    "Labels suggested discussion topics as recommendations.",
+    "Keeps the negotiation ceiling and internal source links out of the customer agenda.",
+    "Produces both drafts without claiming that they were saved."
+  ]
+}

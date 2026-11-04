@@ -1,0 +1,44 @@
+{
+  "name": "Resume after an ambiguous partial write",
+  "skills": ["notion-spec-to-implementation"],
+  "query": "Finish creating tasks for https://notion.so/payment-spec in https://notion.so/tasks. The last attempt disconnected.",
+  "context": {
+    "sources": {
+      "https://notion.so/payment-spec": "Requirements: checkout idempotency, webhook signature validation, webhook replay protection.",
+      "https://notion.so/tasks": {
+        "data_source_id": "tasks-source",
+        "properties": {
+          "Task": "title",
+          "Stage": ["Backlog", "Doing", "Done"]
+        }
+      }
+    },
+    "prior_result": {
+      "confirmed_created": [
+        {
+          "id": "checkout-task",
+          "requirement": "checkout idempotency"
+        }
+      ],
+      "uncertain": ["webhook signature validation"],
+      "not_attempted": ["webhook replay protection"]
+    },
+    "existing_tasks": [
+      {
+        "id": "checkout-task",
+        "requirement": "checkout idempotency"
+      },
+      {
+        "id": "signature-task",
+        "requirement": "webhook signature validation"
+      }
+    ],
+    "tools": ["fetch", "query-data-sources", "create-pages"]
+  },
+  "success_criteria": [
+    "Inspects existing tasks before retrying the uncertain write.",
+    "Reuses checkout-task and signature-task and creates only the missing replay-protection work.",
+    "Reports all resulting task links and distinguishes recovered work from newly created work.",
+    "Does not restart the whole batch or duplicate successful writes."
+  ]
+}

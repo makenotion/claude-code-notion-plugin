@@ -1,0 +1,20 @@
+{
+  "name": "reference-workspace",
+  "skills": ["notion-plan-marketing-campaigns"],
+  "query": "Build a private marketing system for Northline, a lightweight invoicing app for independent architects. Name the new home \"Northline · Campaign studio · Skill test\". This is a new isolated sample; don't reuse or modify existing Northline pages. Use this fictional material as the source and develop useful working drafts.\nBrand: less invoice chasing, more time for architecture; clear and considerate voice; architectural lines, daylight, restrained blue. A cover and original campaign title artwork are welcome.\nCampaigns: Get Friday back, in production, launch Nov 12 2026, lead Maya Chen, outcome help solo architects try a calmer invoice workflow. One-person practice, in review, Nov 19, Jonah Reed, outcome show a studio's Friday admin routine. A clearer year-end, planning, Dec 3, Maya, outcome useful invoice-cleanup checklist.\nContent: Your Friday is not an accounts department (article, Review, Nov12, Maya); 45-second walkthrough (video, Drafting, Nov12, Jonah); Customer launch email (email, Review, Nov13, Maya); Founder note: the hidden admin hour (social idea, undated, Jonah)—all belong to Get Friday back. Studio interview outline (article, Review, Nov19, Jonah) belongs to One-person practice. Year-end invoice checklist (guide, Idea, Dec3, Maya) belongs to A clearer year-end.\nProduct: one view of unpaid invoices; editable reminder drafts, never automatic sending. The article needs product wording and trial-link review; video needs footage after storyboard; interview requires future customer permission. No approved trial URL, performance metrics or budgets. Names are fictional text, never real assignments. Make this a useful connected workspace an editor can use immediately.",
+  "context": {
+    "execution": "Live testing only when explicitly authorized; isolated private sample destinations. Otherwise supply a stateful mock.",
+    "reference": "2026-10-29 reviewed workspace composition; compare capabilities and rendered hierarchy, not exact prose."
+  },
+  "success_criteria": [
+    "Gallery-led home with coherent creative, navigation column with a next action, and editorial review.",
+    "Native campaign-content relations and per-campaign filtered work.",
+    "Article/video/email bodies are usable and distinct; undated idea preserved.",
+    "No extra design coaching; revised skill alone supplies composition.",
+    "Read and visually inspect saved output; failures repaired by runner using skill guidance, not reviewer polish.",
+    "Preserve original benchmarks and unrelated pages.",
+    "Exactly the supplied three campaigns and six deliverables are present; campaign-filter counts are 4/1/1, including the undated founder note in the first campaign.",
+    "Editorial review has three records; unscheduled has one. Verify saved views, not only their configuration.",
+    "Because this brief welcomes original creative, coordinated campaign previews and a restrained cover are delivered; otherwise explicitly fail visual parity."
+  ]
+}

@@ -1,5 +1,9 @@
 # Standard Implementation Plan Template
 
+Adapt this template to the requested scope. Use plain checklist items when task
+pages were not requested; add page links when they exist. Omit unknown dates,
+estimates, and empty sections rather than inventing values.
+
 Use this template for most feature implementations.
 
 ```markdown

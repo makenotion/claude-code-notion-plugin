@@ -1,5 +1,8 @@
 # Comparison Template
 
+Adapt to the requested depth. Omit empty or redundant sections; the illustrated
+number of findings, options, and actions is not a quota.
+
 Use when researching multiple options or alternatives. See [comparison-format.md](comparison-format.md) for when to use this format.
 
 ```markdown

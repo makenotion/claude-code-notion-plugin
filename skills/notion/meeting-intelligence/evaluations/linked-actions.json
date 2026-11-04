@@ -1,0 +1,74 @@
+{
+  "name": "Reconcile meeting commitments with existing tasks",
+  "skills": ["notion-meeting-intelligence"],
+  "query": "Record outcomes from https://notion.so/meeting and create any missing committed tasks in https://notion.so/tasks. Link them to this meeting and https://notion.so/project. Do not notify anyone.",
+  "context": {
+    "sources": {
+      "https://notion.so/meeting": {
+        "data_source_id": "meetings-source",
+        "content": "October 5, 2026 UTC. Decision: hold rollout at 10%. Lee will validate alerts by October 8. Maya will run the rollback rehearsal; no date agreed. Consider rewriting the dashboard, but no commitment. Retain prior October 1 notes.",
+        "Project": ["https://notion.so/project"]
+      },
+      "https://notion.so/project": "Rollout project in projects-source.",
+      "https://notion.so/tasks": {
+        "data_source_id": "tasks-source",
+        "properties": {
+          "Task": "title",
+          "Owner": "person",
+          "Due": "date",
+          "State": ["Open", "Done"],
+          "Meeting": {
+            "type": "relation",
+            "target": "meetings-source"
+          },
+          "Project": {
+            "type": "relation",
+            "target": "projects-source"
+          }
+        }
+      }
+    },
+    "users": [
+      {
+        "id": "user-lee",
+        "name": "Lee"
+      },
+      {
+        "id": "user-maya",
+        "name": "Maya"
+      }
+    ],
+    "query_routes": [
+      {
+        "intent": "Find tasks for this meeting or rollout project",
+        "records": [
+          {
+            "url": "https://notion.so/alerts-task",
+            "Task": "Check alert coverage",
+            "objective": "Validate alerts for this rollout",
+            "Owner": "user-lee",
+            "Due": null,
+            "State": "Open",
+            "Meeting": ["https://notion.so/meeting"],
+            "Project": ["https://notion.so/project"]
+          }
+        ],
+        "complete": true
+      }
+    ],
+    "tools": [
+      "fetch",
+      "query-data-sources",
+      "get-users",
+      "create-pages",
+      "update-page"
+    ]
+  },
+  "success_criteria": [
+    "Preserves the meeting\u2019s prior notes and records the supported 10% decision.",
+    "Reuses the alert task and sets its supported October 8 deadline instead of creating a duplicate.",
+    "Creates exactly one new rehearsal task with Maya as owner and no invented due date.",
+    "Uses actual owner IDs and the correct meeting and project relation targets.",
+    "Leaves dashboard rewriting as an uncommitted proposal, sends no notifications, and returns meeting and task links."
+  ]
+}

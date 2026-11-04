@@ -1,0 +1,24 @@
+{
+  "name": "Separate mentions from independent customers",
+  "skills": ["notion-research-documentation"],
+  "query": "Synthesize this feedback in chat: https://notion.so/feedback. Compare enterprise admins and individual users, count distinct customers where supported, and preserve important exceptions.",
+  "context": {
+    "sources": {
+      "https://notion.so/feedback": "Selected interview and support set, not a representative customer survey. Sources: https://notion.so/f1, https://notion.so/f2, https://notion.so/f3, https://notion.so/f4, https://notion.so/f5, https://notion.so/f6",
+      "https://notion.so/f1": "Original interview I1, customer A, enterprise admin: requires mandatory approval before export.",
+      "https://notion.so/f2": "Copied summary of interview I1 from customer A: requires approval before export.",
+      "https://notion.so/f3": "Separate ticket T1, customer A, enterprise admin: repeats the request for approval before export.",
+      "https://notion.so/f4": "Interview I2, customer B, enterprise admin: wants mandatory export approval.",
+      "https://notion.so/f5": "Interview I3, customer C, individual user: mandatory approval would block their solo workflow.",
+      "https://notion.so/f6": "Interview I4, customer D, enterprise admin: approvals are unnecessary for their sandbox exports; asks for an exception path."
+    },
+    "tools": ["fetch", "create-pages"]
+  },
+  "success_criteria": [
+    "Counts approval demand as two distinct customers, not four; distinguishes the copied summary from A\u2019s separate repeated signal.",
+    "Identifies four known distinct customers in the supplied set if presenting a population count.",
+    "Preserves the enterprise versus individual difference and D\u2019s enterprise counterexample rather than claiming all admins agree.",
+    "Links themes to source feedback, separates suggested implications from observed evidence, and does not infer market prevalence.",
+    "Returns a chat synthesis without saving, creating tasks, or messaging customers."
+  ]
+}

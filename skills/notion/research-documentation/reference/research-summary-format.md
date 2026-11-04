@@ -4,7 +4,7 @@
 
 ## Characteristics
 
-**Length**: 500-1000 words typically
+**Length**: Match the requested depth; no minimum word count.
 
 **Structure**:
 

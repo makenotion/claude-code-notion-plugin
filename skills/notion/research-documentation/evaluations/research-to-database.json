@@ -1,28 +1,36 @@
 {
-  "name": "Research with Database Integration",
-  "skills": ["research-documentation"],
-  "query": "Research competitor pricing strategies and add to our Research database",
-  "expected_behavior": [
-    "Searches for competitor and pricing information using Notion:notion-search",
-    "Applies appropriate search strategy (see reference/advanced-search.md patterns)",
-    "Fetches relevant pages using Notion:notion-fetch and synthesizes findings",
-    "Recognizes need to add to database (mentioned in query)",
-    "Searches for or asks about the Research database location",
-    "Fetches database using Notion:notion-fetch to get schema, data sources, and properties",
-    "Identifies correct data source from <data-source> tags if multiple exist",
-    "Creates page with appropriate database properties (Type: Competitor Analysis, Category, Tags, Date, Status, etc.)",
-    "Uses parent: { data_source_id: 'collection://...' } for correct database placement",
-    "Includes research content using Competitor Analysis format (see reference/formats.md)",
-    "Sets all required properties from schema with correct values",
-    "Cites sources using mention-page tags per reference/citations.md"
-  ],
+  "name": "Comprehensive comparison saved to database",
+  "skills": ["notion-research-documentation"],
+  "query": "Create a comprehensive comparison of Vendor A and Vendor B pricing, including API support, export limits, migration risk, and a recommendation for 20 users. Save it in https://notion.so/research using our notes at https://notion.so/vendors; verify current pricing.",
+  "context": {
+    "sources": {
+      "https://notion.so/research": {
+        "data_source_id": "research-source",
+        "properties": {
+          "Name": "title",
+          "Type": ["Comparison", "Technical"],
+          "State": ["Draft", "Reviewed"]
+        }
+      },
+      "https://notion.so/vendors": "Vendor A has API access and unlimited export. Vendor B lacks an API and caps exports at 1,000 rows/month. Migration has not been tested for either. Pricing notes from 2025 are obsolete.",
+      "https://a.example/pricing": "Current official price: $10/user/month, minimum 10 users.",
+      "https://b.example/pricing": "Current official price: $8/user/month. API unavailable; exports capped at 1,000 rows/month."
+    },
+    "web_results": [
+      {
+        "url": "https://a.example/pricing"
+      },
+      {
+        "url": "https://b.example/pricing"
+      }
+    ],
+    "tools": ["fetch", "web-search", "web-fetch", "create-pages"]
+  },
   "success_criteria": [
-    "Page is created in correct database using data_source_id as parent",
-    "All required database properties are set correctly",
-    "Property values match available options from fetched schema",
-    "Content follows Competitor Analysis format structure",
-    "Sources are cited with proper mention-page tags",
-    "Title is descriptive (e.g., 'Competitor Pricing Analysis')",
-    "Research synthesizes findings rather than just listing sources"
+    "Covers every requested dimension for both vendors without padding to a word quota.",
+    "Verifies and cites external pricing, calculating $200/month for A and $160/month for B at 20 users.",
+    "Distinguishes migration uncertainty from tested facts and explains recommendation trade-offs.",
+    "Uses the fetched database schema and data source; does not invent properties or mark the report Reviewed.",
+    "Returns the saved comparison link with citations to workspace and external evidence."
   ]
 }

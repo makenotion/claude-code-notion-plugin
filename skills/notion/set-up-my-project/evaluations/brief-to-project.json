@@ -1,0 +1,42 @@
+{
+  "name": "brief-to-project",
+  "skills": ["notion-set-up-my-project"],
+  "query": "Set up the customer workshop project in Notion under https://notion.so/team using our chat and https://notion.so/brief. Create a new Projects database under that team home for this and future projects.",
+  "context": {
+    "conversation": "Maya is drafting the agenda. Venue booking is blocked until budget approval. No event date is agreed. Keep the page minimal.",
+    "sources": {
+      "https://notion.so/team": "Team home, no project or tracker exists.",
+      "https://notion.so/brief": "Goal: run a customer workshop and collect feedback. Done means workshop delivered and feedback summarized. Agenda draft: Maya. Book venue after budget approval. Summarize feedback after the workshop. Catering is out of scope. Event date undecided."
+    },
+    "search_routes": [
+      {
+        "intent": "Find an existing customer workshop project or tasks",
+        "results": []
+      }
+    ],
+    "users": [
+      {
+        "id": "user-maya",
+        "name": "Maya"
+      }
+    ],
+    "tools": [
+      "fetch",
+      "search",
+      "connector-search",
+      "get-users",
+      "create-pages",
+      "create-database",
+      "create-view",
+      "query-data-sources"
+    ]
+  },
+  "success_criteria": [
+    "Creates a populated project home under the supplied destination using chat and brief without a repeated intake interview.",
+    "Preserves the outcome, definition of done, and catering exclusion; consolidates repeated agenda mentions into one task.",
+    "Creates agenda, venue booking, and feedback work with source links; assigns only Maya and invents no dates or owners.",
+    "Makes the venue dependency and budget decision visible; does not present venue booking as ready or feedback collection as completed.",
+    "Keeps blocked and undated work visible, uses a concise navigable layout, and returns a project link and first action after checking the created state.",
+    "Creates the project home as a record in the requested new Projects database without asking for placement again."
+  ]
+}

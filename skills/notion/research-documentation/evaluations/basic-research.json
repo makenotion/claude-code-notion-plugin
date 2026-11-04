@@ -1,27 +1,20 @@
 {
-  "name": "Basic Research and Documentation",
-  "skills": ["research-documentation"],
-  "query": "Research our API authentication approach and create a summary document in Notion",
-  "expected_behavior": [
-    "Searches Notion workspace for authentication-related pages using Notion:notion-search",
-    "Uses appropriate search terms like 'API authentication', 'auth', 'API security'",
-    "Applies filters if relevant (e.g., created_date_range, creator filters)",
-    "Fetches at least 2-3 relevant pages using Notion:notion-fetch to get detailed content",
-    "Analyzes the fetched content to extract key information about authentication approach",
-    "Creates a structured research summary document using Research Summary format (see reference/formats.md)",
-    "Includes sections: Executive Summary, Key Findings, Detailed Analysis, Recommendations, Sources",
-    "Cites source pages using <mention-page> tags for proper linking",
-    "Uses Notion:notion-create-pages to save the document to Notion",
-    "Applies Notion-flavored markdown with headings, bullets, and clear structure",
-    "Places document appropriately (asks user or uses project/research area)"
-  ],
+  "name": "Synthesize conflicting workspace evidence",
+  "skills": ["notion-research-documentation"],
+  "query": "Research our API authentication approach and save a summary under https://notion.so/engineering. Start with https://notion.so/auth-overview.",
+  "context": {
+    "sources": {
+      "https://notion.so/engineering": "Engineering documentation parent.",
+      "https://notion.so/auth-overview": "Current decision: OAuth for third parties, service tokens for internal jobs. See https://notion.so/auth-decision and https://notion.so/auth-proposal.",
+      "https://notion.so/auth-decision": "Accepted October 1, 2026: OAuth for third parties with scoped access tokens. Service tokens remain for internal jobs. Supersedes the September API-key proposal.",
+      "https://notion.so/auth-proposal": "Proposed September 1: API keys for all clients. Last edited October 3 to fix formatting."
+    },
+    "tools": ["fetch", "create-pages"]
+  },
   "success_criteria": [
-    "Document contains synthesized information from multiple searched pages",
-    "At least 2-3 source pages are cited with mention-page tags",
-    "Document follows Research Summary format structure from reference/formats.md",
-    "Title is descriptive with topic and date (e.g., 'API Authentication Research - Oct 2025')",
-    "Content is concise but comprehensive with clear findings",
-    "Uses Notion markdown correctly (headings, lists, mentions)",
-    "Document is placed in appropriate location or user is consulted"
+    "Explains OAuth for third parties and service tokens for internal jobs with supporting citations.",
+    "Recognizes the accepted decision supersedes the later-edited proposal.",
+    "Saves the summary in the requested location and returns its link.",
+    "Fetches supplied and linked evidence without requiring a discovery search or fixed number of headings."
   ]
 }

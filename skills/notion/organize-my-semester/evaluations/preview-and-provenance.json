@@ -1,0 +1,18 @@
+{
+  "name": "preview-and-provenance",
+  "skills": ["notion-organize-my-semester"],
+  "query": "Show me a starter layout in chat using only Notion-created templates. Do not create anything yet.",
+  "context": {
+    "conversation": "Biology lecture notes: cell membranes regulate transport. Essay deadline November 12, 2026. Reading chapter 4 has no due date. I prefer a minimal page.",
+    "tools": ["fetch", "search", "create-pages"],
+    "sources": {},
+    "web_responses": {
+      "https://www.notion.com/templates/class-notes": "Creator: Notion. A recommended alternative has creator Community Studio."
+    }
+  },
+  "success_criteria": [
+    "Produces a useful domain-specific preview in chat with no mutations.",
+    "Uses the verified first-party reference or documented adaptation; does not select the community alternative.",
+    "Does not claim an exact gallery layout, definitive popularity rank, or completed Notion workspace."
+  ]
+}

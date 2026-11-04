@@ -1,0 +1,50 @@
+{
+  "name": "reuse-project",
+  "skills": ["notion-set-up-my-project"],
+  "query": "Finish setting up Atlas under https://notion.so/team. The previous create timed out. Keep using our shared tasks.",
+  "context": {
+    "conversation": "Atlas is a website refresh. Draft homepage copy is the only agreed task; it has no owner or deadline.",
+    "prior_result": "Create project Atlas timed out; no further writes were attempted.",
+    "sources": {
+      "https://notion.so/team": "Projects: https://notion.so/projects. Tasks: https://notion.so/tasks.",
+      "https://notion.so/projects": "Data source collection://projects; Title property; record Atlas at https://notion.so/atlas.",
+      "https://notion.so/atlas": "Atlas project: website refresh. Existing brief must be preserved.",
+      "https://notion.so/tasks": "Data source collection://tasks; Title, Status (Todo, Doing, Done), Owner, Due, Project relation to collection://projects."
+    },
+    "query_routes": [
+      {
+        "intent": "Find Atlas project",
+        "records": [
+          {
+            "url": "https://notion.so/atlas",
+            "Title": "Atlas"
+          }
+        ]
+      },
+      {
+        "intent": "Find Atlas tasks",
+        "records": [
+          {
+            "url": "https://notion.so/copy",
+            "Title": "Draft homepage copy",
+            "Status": "Todo",
+            "Project": "https://notion.so/atlas"
+          }
+        ]
+      }
+    ],
+    "tools": [
+      "fetch",
+      "search",
+      "query-data-sources",
+      "create-pages",
+      "update-page",
+      "create-view"
+    ]
+  },
+  "success_criteria": [
+    "Inspects state after the timeout and reuses Atlas and its existing copy task; creates no duplicates or competing databases.",
+    "Preserves the existing brief, unknown owner and due date, and the task relation.",
+    "Uses existing status values and scopes every project task view to Atlas through the actual Project relation; verifies filters rather than relying on view titles."
+  ]
+}

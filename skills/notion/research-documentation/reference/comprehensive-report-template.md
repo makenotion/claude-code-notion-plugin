@@ -1,5 +1,8 @@
 # Comprehensive Report Template
 
+Adapt to the requested depth. Omit empty or redundant sections; the illustrated
+number of findings, options, and actions is not a quota.
+
 Use for in-depth research requiring extensive analysis. See [comprehensive-report-format.md](comprehensive-report-format.md) for when to use this format.
 
 ```markdown

@@ -1,0 +1,73 @@
+{
+  "name": "epd-project",
+  "skills": ["notion-set-up-my-project"],
+  "query": "Set up Saved views in Notion using these project notes.",
+  "context": {
+    "conversation": "Fictional demo. Saved views lets support leads save a filtered ticket queue and return to it. EPD leads are product, design, and frontend/backend engineering roles; no actual people or launch date assigned. Stage: definition. V1 supports private named views with filters and sort order; sharing, default team views, and bulk actions are out of scope. Five mock interviews describe repeatedly rebuilding the same filter combinations; these are qualitative observations, not measured impact. Success criteria and instrumentation need review before implementation. Rename/delete flows are in design review. Persistence work is blocked on a decision about whether views follow a user across workspaces; recommendation is to scope views to user plus workspace, not approved yet. Discovery synthesis is done. Product brief and engineering proposal are drafts. No external tracker exists. Placement already chosen by the user: create a new private Projects database and put this project in it.",
+    "sources": {},
+    "raw_work": [
+      {
+        "task": "Summarize repeated queue setup problems",
+        "status": "Done",
+        "discipline": "Product",
+        "detail": "Five mock interviews were synthesized; repeated filtering is the primary problem. No baseline time measurement exists."
+      },
+      {
+        "task": "Define success measures and events",
+        "status": "In progress",
+        "discipline": "Product",
+        "detail": "Propose save, reopen, update, and delete events. Activation and repeat-use thresholds need agreement."
+      },
+      {
+        "task": "Review create, rename, and delete states",
+        "status": "In review",
+        "discipline": "Design",
+        "detail": "Resolve duplicate names, empty names, unsaved edits, and delete confirmation."
+      },
+      {
+        "task": "Resolve workspace ownership of saved views",
+        "status": "Not started",
+        "discipline": "Engineering",
+        "detail": "Compare user-only and user-plus-workspace scoping. Recommendation is user-plus-workspace. Decision remains open."
+      },
+      {
+        "task": "Implement saved-view persistence",
+        "status": "Blocked",
+        "discipline": "Engineering",
+        "detail": "Depends on workspace scoping decision. Persist filter/sort definitions; enforce authorization on every operation."
+      },
+      {
+        "task": "Implement view picker and edit flows",
+        "status": "Not started",
+        "discipline": "Engineering",
+        "detail": "Depends on reviewed design states and persistence contract."
+      },
+      {
+        "task": "Define rollout and recovery checks",
+        "status": "Not started",
+        "discipline": "Product",
+        "detail": "Draft an internal pilot with a feature gate. Disabling the gate should restore the existing queue experience without deleting saved definitions."
+      }
+    ],
+    "tools": [
+      "fetch",
+      "search",
+      "connector-search",
+      "get-tool-access",
+      "create-pages",
+      "create-database",
+      "create-view",
+      "query-data-sources"
+    ]
+  },
+  "success_criteria": [
+    "Honors the prior choice without asking again: creates a private Projects database, creates the project home as a record, and relates Tasks and Docs to that record with filtered home views.",
+    "Home makes project stage, problem, scope, unresolved ownership, and current decision easy to find with restrained hierarchy and compact populated views; no promotional slogans or decorative milestone panels.",
+    "Preserves all seven source tasks and their actual statuses; blocked persistence remains visible, and unknown owners and dates remain unset.",
+    "Docs contain substantive source-based product context, design review states, technical tradeoffs, and rollout considerations. Draft/proposed content is labeled; no approved decision, test result, numerical success target, or launch commitment is invented.",
+    "Links tasks to relevant documents and makes the project home reachable from task and document bodies.",
+    "Checks actual task and docs views and inspects rendering when available. A single board with supporting links does not satisfy the required structure.",
+    "Design judgment comes from the skill and relevant patterns across the template research, without additional coaching in the test prompt.",
+    "Includes a project-linked meeting-notes view, reusable agenda, and first proposed weekly-sync agenda seeded with the workspace-scope decision and blocked persistence task. Leaves date and participants unset and asks about cadence only after sharing the home."
+  ]
+}

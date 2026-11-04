@@ -1,0 +1,27 @@
+{
+  "name": "Recover an ambiguous database creation",
+  "skills": ["notion-database-designer"],
+  "query": "Continue setting up the equipment checkout database under https://notion.so/lab. Do not create a second copy.",
+  "context": {
+    "conversation": "The user authorized a database with Item title, Borrower person, Due date, and State (Available, Checked out). The create request timed out before a response. No sample records were requested.",
+    "sources": {
+      "https://notion.so/lab": "Lab parent. Child database: https://notion.so/equipment",
+      "https://notion.so/equipment": {
+        "data_source_id": "equipment-source",
+        "properties": {
+          "Item": "title",
+          "Borrower": "person",
+          "Due": "date",
+          "State": ["Available", "Checked out"]
+        }
+      }
+    },
+    "tools": ["fetch", "search", "create-database", "update-data-source"]
+  },
+  "success_criteria": [
+    "Inspects the supplied parent and existing equipment database before any retry.",
+    "Recognizes the authorized structure already exists and returns its link.",
+    "Creates no duplicate database or sample records.",
+    "Reports verified existing state rather than treating the timeout as proof of failure."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "name": "Make an existing team tracker easier to scan without losing notes",
+  "skills": ["notion-database-designer"],
+  "query": "Our team tracker at https://notion.so/deliverables is hard to scan. Add a simple progress field so we can quickly see what is planned, underway, or finished. Fill it in from what is already there, and keep our original labels and notes.",
+  "context": {
+    "sources": {
+      "https://notion.so/deliverables": {
+        "data_source_id": "deliverables-source",
+        "properties": {
+          "Deliverable": "title",
+          "Legacy phase": "text",
+          "Project": {
+            "type": "relation",
+            "target": "projects-source"
+          }
+        },
+        "views": []
+      }
+    },
+    "query_routes": [
+      {
+        "intent": "Read all affected deliverables",
+        "pages": [
+          {
+            "records": [
+              {
+                "url": "https://notion.so/d1",
+                "Deliverable": "Export",
+                "Legacy phase": "queued",
+                "Project": ["https://notion.so/p1"],
+                "content": "Keep export notes."
+              },
+              {
+                "url": "https://notion.so/d2",
+                "Deliverable": "Import",
+                "Legacy phase": "building",
+                "Project": ["https://notion.so/p1"],
+                "content": "Keep import notes."
+              }
+            ],
+            "has_more": true,
+            "next_cursor": "page-2"
+          },
+          {
+            "records": [
+              {
+                "url": "https://notion.so/d3",
+                "Deliverable": "Search",
+                "Legacy phase": "shipped",
+                "Project": ["https://notion.so/p2"],
+                "content": "Keep search notes."
+              }
+            ],
+            "has_more": false
+          }
+        ]
+      }
+    ],
+    "tools": [
+      "fetch",
+      "query-data-sources",
+      "update-data-source",
+      "update-page"
+    ]
+  },
+  "success_criteria": [
+    "Follows pagination and adds a progress field populated as planned for queued, underway for building, and finished for shipped on all three records; equivalent field names and status labels are acceptable.",
+    "Preserves Legacy phase values, Project relations, page content, and record identity.",
+    "Uses the clear existing labels to populate the requested progress field without requiring the user to design the schema or repeat authorization.",
+    "Verifies populated values and coverage, not just creation of an empty progress field.",
+    "Reports completion only after all three records are verified."
+  ]
+}

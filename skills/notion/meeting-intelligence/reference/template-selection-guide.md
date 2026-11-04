@@ -49,8 +49,8 @@ All templates can be customized:
 
 ## Best Practices
 
-1. **Choose template first**: Select before gathering context
-2. **Gather Notion content**: Search and fetch relevant pages
-3. **Enrich with research**: Add Claude insights where valuable
-4. **Customize as needed**: Adapt template to specific situation
-5. **Share early**: Give attendees time to review
+1. **Use the requested outcome**: An agenda alone does not require a pre-read.
+2. **Gather evidence selectively**: Fetch supplied pages and fill material gaps.
+3. **Enrich when useful**: Distinguish sourced facts from analysis; verify current external facts.
+4. **Customize**: Fit sections and time allocations to the actual meeting.
+5. **Respect audiences**: Keep internal content and links out of external materials. Share or notify only when requested.

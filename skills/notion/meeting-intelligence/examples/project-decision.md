@@ -341,7 +341,10 @@ _[To be filled during meeting]_
 - Cost analysis spreadsheet
 ```
 
-### Step 5: Share Agenda
+### Step 5: Share agenda when requested
+
+Only perform this optional notification if the user requested sharing or notifying
+these attendees. Preparing the documents alone does not authorize a comment.
 
 ```
 Notion:notion-create-comment

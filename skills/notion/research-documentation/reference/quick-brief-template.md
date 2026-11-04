@@ -1,5 +1,8 @@
 # Quick Brief Template
 
+Adapt to the requested depth. Omit empty or redundant sections; the illustrated
+number of findings, options, and actions is not a quota.
+
 Use for fast turnaround requests or simple topics. See [quick-brief-format.md](quick-brief-format.md) for when to use this format.
 
 ```markdown

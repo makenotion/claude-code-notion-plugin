@@ -1,0 +1,17 @@
+{
+  "name": "preview-without-write",
+  "skills": ["notion-set-up-my-project"],
+  "query": "Show me how you would set up our office move project. Only use Notion-created templates. Keep it in chat for now.",
+  "context": {
+    "conversation": "We need to inventory equipment and choose a moving date. No date or owners yet.",
+    "tools": ["fetch", "search", "create-pages"],
+    "web_responses": {
+      "https://www.notion.com/templates/notion-projects-and-tasks": "Creator: Notion. Projects, tasks, planning documents. Related template: Office Move by Community Studio."
+    }
+  },
+  "success_criteria": [
+    "Provides an actionable project preview with equipment inventory and an unresolved date decision, without any writes.",
+    "Uses the first-party reference and distinguishes the proposed adaptation from an exact clone; rejects the community reference.",
+    "Invents no owners, dates, completion metrics, or completed Notion setup."
+  ]
+}

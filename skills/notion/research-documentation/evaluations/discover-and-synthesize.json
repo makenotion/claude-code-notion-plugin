@@ -1,0 +1,75 @@
+{
+  "name": "Discover sources and destination for research",
+  "skills": ["notion-research-documentation"],
+  "query": "Research our current API authentication approach and save a summary in Engineering Docs.",
+  "context": {
+    "tool_access": {
+      "current_tool_access": {
+        "search": {
+          "status": "available"
+        },
+        "create_pages": {
+          "status": "available"
+        }
+      }
+    },
+    "search_routes": [
+      {
+        "intent": "Find API authentication sources, including related keyword variants",
+        "results": [
+          {
+            "url": "https://notion.so/legacy-auth",
+            "title": "API authentication proposal",
+            "snippet": "September proposal; superseded."
+          },
+          {
+            "url": "https://notion.so/customer-auth",
+            "title": "Customer authentication FAQ",
+            "snippet": "Customer portal login, not the developer API."
+          },
+          {
+            "url": "https://notion.so/api-auth-decision",
+            "title": "API access decision",
+            "snippet": "Accepted architecture decision for external clients."
+          },
+          {
+            "url": "https://notion.so/service-auth",
+            "title": "Internal job authentication",
+            "snippet": "Operations policy for automated service jobs."
+          }
+        ]
+      },
+      {
+        "intent": "Find the Engineering Docs destination",
+        "results": [
+          {
+            "url": "https://notion.so/sales-docs",
+            "title": "Sales Docs",
+            "snippet": "Sales enablement library."
+          },
+          {
+            "url": "https://notion.so/engineering-docs",
+            "title": "Engineering Docs",
+            "snippet": "Engineering technical documentation parent."
+          }
+        ]
+      }
+    ],
+    "sources": {
+      "https://notion.so/legacy-auth": "September proposal: API keys for all clients. Superseded by the October API access decision.",
+      "https://notion.so/customer-auth": "Customer portal uses email/password sign-in. This document does not describe the developer API.",
+      "https://notion.so/api-auth-decision": "Accepted October 1, 2026: external API clients use OAuth with scoped access tokens. This supersedes API keys for external clients.",
+      "https://notion.so/service-auth": "Accepted October 2, 2026: internal automated jobs use service tokens rotated every 30 days. They are not covered by the external OAuth decision.",
+      "https://notion.so/sales-docs": "Sales enablement materials only.",
+      "https://notion.so/engineering-docs": "Engineering documentation parent. Research summaries belong here."
+    },
+    "tools": ["get-tool-access", "search", "fetch", "create-pages"]
+  },
+  "success_criteria": [
+    "Discovers relevant sources and the Engineering Docs destination through search without requesting URLs already discoverable with the tools.",
+    "Fetches and synthesizes the external OAuth decision and internal service-token policy, including the 30-day rotation detail absent from search snippets.",
+    "Does not treat the superseded API-key proposal or customer-portal login as the current API approach.",
+    "Saves a cited summary under Engineering Docs and returns its link.",
+    "Citations support both external-client and internal-job findings; no fixed number of searches or headings is required."
+  ]
+}
