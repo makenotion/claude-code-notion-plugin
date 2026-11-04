@@ -2,7 +2,11 @@
   "mcpServers": {
     "notion": {
       "type": "http",
-      "url": "https://mcp.notion.com/mcp"
+      "url": "https://mcp.notion.com/mcp",
+      "headers": {
+        "X-Notion-Plugin": "notion-claude-code-plugin",
+        "X-Notion-Plugin-Version": "0.2.0"
+      }
     }
   }
 }
