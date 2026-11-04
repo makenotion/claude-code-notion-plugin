@@ -1,5 +1,5 @@
 interface:
-  display_name: "Meeting Intelligence"
+  display_name: "Meeting intelligence"
   short_description: "Prepare meetings and follow-ups"
 policy:
   allow_implicit_invocation: true

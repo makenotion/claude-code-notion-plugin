@@ -1,5 +1,5 @@
 interface:
-  display_name: "Research Documentation"
+  display_name: "Research documentation"
   short_description: "Research and write cited docs"
 policy:
   allow_implicit_invocation: true
